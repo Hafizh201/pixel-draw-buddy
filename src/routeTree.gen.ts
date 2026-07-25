@@ -9,9 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MonitoringRouteImport } from './routes/monitoring'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AttendanceTodayRouteImport } from './routes/attendance-today'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PickupWaitingRouteImport } from './routes/pickup.waiting'
 import { Route as PickupSelectRouteImport } from './routes/pickup.select'
@@ -21,6 +26,21 @@ import { Route as PickupCompleteRouteImport } from './routes/pickup.complete'
 import { Route as LoginPinRouteImport } from './routes/login.pin'
 import { Route as PickupFormMethodRouteImport } from './routes/pickup.form.$method'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MonitoringRoute = MonitoringRouteImport.update({
   id: '/monitoring',
   path: '/monitoring',
@@ -31,9 +51,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceTodayRoute = AttendanceTodayRouteImport.update({
+  id: '/attendance-today',
+  path: '/attendance-today',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -79,9 +109,14 @@ const PickupFormMethodRoute = PickupFormMethodRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/attendance-today': typeof AttendanceTodayRoute
   '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
   '/login': typeof LoginRouteWithChildren
   '/monitoring': typeof MonitoringRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/login/pin': typeof LoginPinRoute
   '/pickup/complete': typeof PickupCompleteRoute
   '/pickup/method': typeof PickupMethodRoute
@@ -92,9 +127,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/attendance-today': typeof AttendanceTodayRoute
   '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
   '/login': typeof LoginRouteWithChildren
   '/monitoring': typeof MonitoringRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/login/pin': typeof LoginPinRoute
   '/pickup/complete': typeof PickupCompleteRoute
   '/pickup/method': typeof PickupMethodRoute
@@ -106,9 +146,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/attendance-today': typeof AttendanceTodayRoute
   '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
   '/login': typeof LoginRouteWithChildren
   '/monitoring': typeof MonitoringRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/login/pin': typeof LoginPinRoute
   '/pickup/complete': typeof PickupCompleteRoute
   '/pickup/method': typeof PickupMethodRoute
@@ -121,9 +166,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/attendance-today'
     | '/dashboard'
+    | '/history'
     | '/login'
     | '/monitoring'
+    | '/notifications'
+    | '/profile'
+    | '/settings'
     | '/login/pin'
     | '/pickup/complete'
     | '/pickup/method'
@@ -134,9 +184,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/attendance-today'
     | '/dashboard'
+    | '/history'
     | '/login'
     | '/monitoring'
+    | '/notifications'
+    | '/profile'
+    | '/settings'
     | '/login/pin'
     | '/pickup/complete'
     | '/pickup/method'
@@ -147,9 +202,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/attendance-today'
     | '/dashboard'
+    | '/history'
     | '/login'
     | '/monitoring'
+    | '/notifications'
+    | '/profile'
+    | '/settings'
     | '/login/pin'
     | '/pickup/complete'
     | '/pickup/method'
@@ -161,9 +221,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AttendanceTodayRoute: typeof AttendanceTodayRoute
   DashboardRoute: typeof DashboardRoute
+  HistoryRoute: typeof HistoryRoute
   LoginRoute: typeof LoginRouteWithChildren
   MonitoringRoute: typeof MonitoringRoute
+  NotificationsRoute: typeof NotificationsRoute
+  ProfileRoute: typeof ProfileRoute
+  SettingsRoute: typeof SettingsRoute
   PickupCompleteRoute: typeof PickupCompleteRoute
   PickupMethodRoute: typeof PickupMethodRoute
   PickupPreviewRoute: typeof PickupPreviewRoute
@@ -174,6 +239,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/monitoring': {
       id: '/monitoring'
       path: '/monitoring'
@@ -188,11 +274,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance-today': {
+      id: '/attendance-today'
+      path: '/attendance-today'
+      fullPath: '/attendance-today'
+      preLoaderRoute: typeof AttendanceTodayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -266,9 +366,14 @@ const LoginRouteWithChildren = LoginRoute._addFileChildren(LoginRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AttendanceTodayRoute: AttendanceTodayRoute,
   DashboardRoute: DashboardRoute,
+  HistoryRoute: HistoryRoute,
   LoginRoute: LoginRouteWithChildren,
   MonitoringRoute: MonitoringRoute,
+  NotificationsRoute: NotificationsRoute,
+  ProfileRoute: ProfileRoute,
+  SettingsRoute: SettingsRoute,
   PickupCompleteRoute: PickupCompleteRoute,
   PickupMethodRoute: PickupMethodRoute,
   PickupPreviewRoute: PickupPreviewRoute,
