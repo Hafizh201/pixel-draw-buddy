@@ -30,7 +30,7 @@ function PreviewPage() {
   const { s } = Route.useSearch();
   const draft = getDraft();
   const studentIds = s.split(",");
-  const chosen = studentIds.map((id) => students.find((x) => x.id === id)!).filter(Boolean);
+  const chosen = studentIds.map((id: string) => students.find((x) => x.id === id)!).filter(Boolean);
   const [checks, setChecks] = useState({ data: false, kontak: false });
   const allChecked = checks.data && checks.kontak;
   const nav = useNavigate();
