@@ -88,7 +88,7 @@ export function finishAndArchive() {
   if (!s.current) return;
   pickupStore.set({
     current: null,
-    history: [{ ...s.current, stage: "done" }, ...s.history].slice(0, 20),
+    history: [{ ...s.current, stage: "done" as PickupStage }, ...s.history].slice(0, 20),
   });
 }
 
