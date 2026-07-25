@@ -36,7 +36,7 @@ function PreviewPage() {
   const nav = useNavigate();
 
   const rows: [string, string][] = [
-    ["Siswa", chosen.map((c) => c.name).join(", ")],
+    ["Siswa", chosen.map((c: { name: string }) => c.name).join(", ")],
     ["Metode", labelOf(draft.method)],
     ["Estimasi", `${draft.estimate} menit`],
     ...(draft.method === "self" ? [["Lokasi menunggu", draft.waitLocation] as [string, string]] : []),
