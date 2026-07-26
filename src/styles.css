@@ -157,6 +157,9 @@
   0% { transform: scale(0.6); opacity: 0; }
   60% { transform: scale(1.15); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
 
 @utility animate-fade-in { animation: fade-in 0.35s ease-out both; }
@@ -164,3 +167,4 @@
 @utility animate-shake { animation: shake 0.4s ease-in-out both; }
 @utility animate-pulse-ring { animation: pulse-ring 1.8s ease-out infinite; }
 @utility animate-stage-tick { animation: stage-tick 0.4s ease-out both; }
+
