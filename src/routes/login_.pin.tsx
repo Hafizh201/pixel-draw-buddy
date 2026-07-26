@@ -4,7 +4,7 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { PinDots, PinKeypad } from "@/components/common/Pin";
 import { sessionStore, useSession } from "@/lib/state/stores";
 
-export const Route = createFileRoute("/login/pin")({
+export const Route = createFileRoute("/login_/pin")({
   head: () => ({
     meta: [
       { title: "PIN — Panggil" },
