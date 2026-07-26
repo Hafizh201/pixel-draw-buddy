@@ -28,7 +28,7 @@ import { Route as PickupSelectRouteImport } from './routes/pickup.select'
 import { Route as PickupPreviewRouteImport } from './routes/pickup.preview'
 import { Route as PickupMethodRouteImport } from './routes/pickup.method'
 import { Route as PickupCompleteRouteImport } from './routes/pickup.complete'
-import { Route as LoginPinRouteImport } from './routes/login.pin'
+import { Route as LoginPinRouteImport } from './routes/login_.pin'
 import { Route as PickupFormMethodRouteImport } from './routes/pickup.form.$method'
 
 const TrustedPickupRoute = TrustedPickupRouteImport.update({
@@ -127,9 +127,9 @@ const PickupCompleteRoute = PickupCompleteRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginPinRoute = LoginPinRouteImport.update({
-  id: '/pin',
-  path: '/pin',
-  getParentRoute: () => LoginRoute,
+  id: '/login_/pin',
+  path: '/login/pin',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PickupFormMethodRoute = PickupFormMethodRouteImport.update({
   id: '/pickup/form/$method',
@@ -144,7 +144,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/help': typeof HelpRoute
   '/history': typeof HistoryRoute
-  '/login': typeof LoginRouteWithChildren
+  '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
@@ -167,7 +167,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/help': typeof HelpRoute
   '/history': typeof HistoryRoute
-  '/login': typeof LoginRouteWithChildren
+  '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
@@ -191,14 +191,14 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/help': typeof HelpRoute
   '/history': typeof HistoryRoute
-  '/login': typeof LoginRouteWithChildren
+  '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/school': typeof SchoolRoute
   '/settings': typeof SettingsRouteWithChildren
   '/trusted-pickup': typeof TrustedPickupRoute
-  '/login/pin': typeof LoginPinRoute
+  '/login_/pin': typeof LoginPinRoute
   '/pickup/complete': typeof PickupCompleteRoute
   '/pickup/method': typeof PickupMethodRoute
   '/pickup/preview': typeof PickupPreviewRoute
@@ -269,7 +269,7 @@ export interface FileRouteTypes {
     | '/school'
     | '/settings'
     | '/trusted-pickup'
-    | '/login/pin'
+    | '/login_/pin'
     | '/pickup/complete'
     | '/pickup/method'
     | '/pickup/preview'
@@ -286,13 +286,14 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   HelpRoute: typeof HelpRoute
   HistoryRoute: typeof HistoryRoute
-  LoginRoute: typeof LoginRouteWithChildren
+  LoginRoute: typeof LoginRoute
   MonitoringRoute: typeof MonitoringRoute
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   SchoolRoute: typeof SchoolRoute
   SettingsRoute: typeof SettingsRouteWithChildren
   TrustedPickupRoute: typeof TrustedPickupRoute
+  LoginPinRoute: typeof LoginPinRoute
   PickupCompleteRoute: typeof PickupCompleteRoute
   PickupMethodRoute: typeof PickupMethodRoute
   PickupPreviewRoute: typeof PickupPreviewRoute
@@ -436,12 +437,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PickupCompleteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login/pin': {
-      id: '/login/pin'
-      path: '/pin'
+    '/login_/pin': {
+      id: '/login_/pin'
+      path: '/login/pin'
       fullPath: '/login/pin'
       preLoaderRoute: typeof LoginPinRouteImport
-      parentRoute: typeof LoginRoute
+      parentRoute: typeof rootRouteImport
     }
     '/pickup/form/$method': {
       id: '/pickup/form/$method'
@@ -452,16 +453,6 @@ declare module '@tanstack/react-router' {
     }
   }
 }
-
-interface LoginRouteChildren {
-  LoginPinRoute: typeof LoginPinRoute
-}
-
-const LoginRouteChildren: LoginRouteChildren = {
-  LoginPinRoute: LoginPinRoute,
-}
-
-const LoginRouteWithChildren = LoginRoute._addFileChildren(LoginRouteChildren)
 
 interface SettingsRouteChildren {
   SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
@@ -482,13 +473,14 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   HelpRoute: HelpRoute,
   HistoryRoute: HistoryRoute,
-  LoginRoute: LoginRouteWithChildren,
+  LoginRoute: LoginRoute,
   MonitoringRoute: MonitoringRoute,
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   SchoolRoute: SchoolRoute,
   SettingsRoute: SettingsRouteWithChildren,
   TrustedPickupRoute: TrustedPickupRoute,
+  LoginPinRoute: LoginPinRoute,
   PickupCompleteRoute: PickupCompleteRoute,
   PickupMethodRoute: PickupMethodRoute,
   PickupPreviewRoute: PickupPreviewRoute,
@@ -499,13 +491,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
