@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -22,7 +24,9 @@ export const Route = createFileRoute("/profile")({
 });
 
 function Profile() {
+  const ready = usePageReady();
   const session = useSession();
+  if (!ready) return <PageSkeleton />;
   const settings = useSettings();
   const nav = useNavigate();
 

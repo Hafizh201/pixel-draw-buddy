@@ -1,4 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { DashboardSkeleton } from "@/components/feedback/Skeletons";
 import { useEffect } from "react";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -26,7 +28,9 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function Dashboard() {
+  const ready = usePageReady(700);
   const session = useSession();
+  if (!ready) return <DashboardSkeleton />;
   const nav = useNavigate();
   const { current } = useActivePickup();
   const active = students.filter((s) => !s.pendingApproval);

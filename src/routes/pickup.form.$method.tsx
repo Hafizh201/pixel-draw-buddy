@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { FormSkeleton } from "@/components/feedback/Skeletons";
 import { useState } from "react";
 import { z } from "zod";
 import { PhoneShell } from "@/components/layout/PhoneShell";
@@ -39,7 +41,9 @@ const draft = {
 let draftMemo = { ...draft };
 
 function FormPage() {
+  const ready = usePageReady();
   const { method } = Route.useParams() as { method: "self" | "other" | "ojek" };
+  if (!ready) return <FormSkeleton />;
   const { s } = Route.useSearch();
   const nav = useNavigate();
   const [state, setState] = useState({ ...draftMemo, method });

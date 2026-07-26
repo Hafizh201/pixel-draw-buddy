@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
 import { useState } from "react";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
@@ -22,7 +24,9 @@ export const Route = createFileRoute("/pickup/method")({
 type Method = "self" | "other" | "ojek";
 
 function MethodPage() {
+  const ready = usePageReady();
   const [method, setMethod] = useState<Method | null>(null);
+  if (!ready) return <PageSkeleton withNav={false} />;
   const nav = useNavigate();
   const active = students.filter((s) => !s.pendingApproval);
   const needsSelect = active.length > 1;

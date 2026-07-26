@@ -2,6 +2,8 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { EmptyState } from "@/components/feedback/EmptyState";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
+import { usePageReady } from "@/hooks/use-page-ready";
 import { Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -22,6 +24,8 @@ export function PlaceholderPage({
   children?: ReactNode;
   hideNav?: boolean;
 }) {
+  const ready = usePageReady();
+  if (!ready) return <PageSkeleton withNav={!hideNav} />;
   return (
     <PhoneShell>
       <TopBar title={title} subtitle={subtitle} back={back} />
