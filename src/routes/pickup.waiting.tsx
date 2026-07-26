@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { MonitoringSkeleton } from "@/components/feedback/Skeletons";
 import { useState } from "react";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
@@ -28,7 +30,9 @@ export const Route = createFileRoute("/pickup/waiting")({
 });
 
 function WaitingPage() {
+  const ready = usePageReady();
   const { current } = useActivePickup();
+  if (!ready) return <MonitoringSkeleton />;
   const nav = useNavigate();
   const [extras, setExtras] = useState<string[]>([]);
   const [open, setOpen] = useState(false);

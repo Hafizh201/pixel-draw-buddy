@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
 import { useState } from "react";
 import { z } from "zod";
 import { PhoneShell } from "@/components/layout/PhoneShell";
@@ -24,7 +26,9 @@ export const Route = createFileRoute("/pickup/select")({
 });
 
 function SelectStudent() {
+  const ready = usePageReady();
   const { m } = Route.useSearch();
+  if (!ready) return <PageSkeleton withNav={false} />;
   const active = students.filter((s) => !s.pendingApproval);
   const [selected, setSelected] = useState<string[]>([active[0].id]);
   const nav = useNavigate();

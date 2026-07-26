@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { FormSkeleton } from "@/components/feedback/Skeletons";
 import { useState } from "react";
 import { z } from "zod";
 import { PhoneShell } from "@/components/layout/PhoneShell";
@@ -27,7 +29,9 @@ export const Route = createFileRoute("/pickup/preview")({
 });
 
 function PreviewPage() {
+  const ready = usePageReady();
   const { s } = Route.useSearch();
+  if (!ready) return <FormSkeleton />;
   const draft = getDraft();
   const studentIds = s.split(",");
   const chosen = studentIds.map((id: string) => students.find((x) => x.id === id)!).filter(Boolean);

@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { BigButton } from "@/components/common/BigButton";
 import { CheckCircle2 } from "lucide-react";
@@ -16,7 +18,9 @@ export const Route = createFileRoute("/pickup/complete")({
 });
 
 function CompletePage() {
+  const ready = usePageReady();
   const nav = useNavigate();
+  if (!ready) return <PageSkeleton withNav={false} />;
   return (
     <PhoneShell padded={false}>
       <div className="flex min-h-screen flex-col items-center justify-center px-8 text-center">

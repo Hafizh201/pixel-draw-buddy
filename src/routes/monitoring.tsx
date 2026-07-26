@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { MonitoringSkeleton } from "@/components/feedback/Skeletons";
 import { useEffect } from "react";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
@@ -24,7 +26,9 @@ export const Route = createFileRoute("/monitoring")({
 });
 
 function Monitoring() {
+  const ready = usePageReady();
   const { current } = useActivePickup();
+  if (!ready) return <MonitoringSkeleton />;
   const nav = useNavigate();
 
   useEffect(() => {

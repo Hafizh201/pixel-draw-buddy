@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/use-page-ready";
+import { PageSkeleton } from "@/components/feedback/Skeletons";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -19,6 +21,8 @@ export const Route = createFileRoute("/attendance-today")({
 });
 
 function Attendance() {
+  const ready = usePageReady();
+  if (!ready) return <PageSkeleton />;
   return (
     <PhoneShell>
       <TopBar title="Presensi Hari Ini" back="/dashboard" subtitle="Diperbarui otomatis" />
