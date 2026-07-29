@@ -73,6 +73,8 @@ function Monitoring() {
         </div>
       </div>
 
+      <AutoPickupGeofence />
+
       <SectionHeader title="Tahapan Proses" className="mt-8" />
       <div className="mx-5 rounded-3xl border border-border bg-surface p-5 shadow-card">
         <StageStepper stage={current.stage} />
