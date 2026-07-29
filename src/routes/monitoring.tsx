@@ -7,6 +7,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { useActivePickup } from "@/lib/state/stores";
 import { completeAndStartCooldown } from "@/lib/pickup/simulator";
 import { StageStepper, ProgressRing, ActivityTimeline } from "@/components/monitoring/StageStepper";
+import { AutoPickupGeofence } from "@/components/monitoring/AutoPickupGeofence";
 import { SectionHeader, IconBadge, Chip } from "@/components/common/Section";
 import { Radio, Volume2, Copy, Server, Cpu } from "lucide-react";
 import { toast } from "sonner";
@@ -71,6 +72,8 @@ function Monitoring() {
           </div>
         </div>
       </div>
+
+      <AutoPickupGeofence />
 
       <SectionHeader title="Tahapan Proses" className="mt-8" />
       <div className="mx-5 rounded-3xl border border-border bg-surface p-5 shadow-card">
