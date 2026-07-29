@@ -7,6 +7,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { useActivePickup } from "@/lib/state/stores";
 import { completeAndStartCooldown } from "@/lib/pickup/simulator";
 import { StageStepper, ProgressRing, ActivityTimeline } from "@/components/monitoring/StageStepper";
+import { AutoPickupGeofence } from "@/components/monitoring/AutoPickupGeofence";
 import { SectionHeader, IconBadge, Chip } from "@/components/common/Section";
 import { Radio, Volume2, Copy, Server, Cpu } from "lucide-react";
 import { toast } from "sonner";
