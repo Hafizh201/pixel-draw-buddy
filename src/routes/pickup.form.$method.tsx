@@ -43,11 +43,11 @@ let draftMemo = { ...draft };
 function FormPage() {
   const ready = usePageReady();
   const { method } = Route.useParams() as { method: "self" | "other" | "ojek" };
-  if (!ready) return <FormSkeleton />;
   const { s } = Route.useSearch();
   const nav = useNavigate();
   const [state, setState] = useState({ ...draftMemo, method });
   const [noteValid, setNoteValid] = useState(true);
+  if (!ready) return <FormSkeleton />;
 
   const set = <K extends keyof typeof state>(k: K, v: (typeof state)[K]) =>
     setState((p) => ({ ...p, [k]: v }));
