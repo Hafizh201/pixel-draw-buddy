@@ -29,7 +29,6 @@ export const Route = createFileRoute("/monitoring")({
 function Monitoring() {
   const ready = usePageReady();
   const { current } = useActivePickup();
-  if (!ready) return <MonitoringSkeleton />;
   const nav = useNavigate();
 
   useEffect(() => {
@@ -39,6 +38,8 @@ function Monitoring() {
       return () => clearTimeout(t);
     }
   }, [current, nav]);
+
+  if (!ready) return <MonitoringSkeleton />;
 
   if (!current) {
     return (
