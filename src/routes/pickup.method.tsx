@@ -26,10 +26,10 @@ type Method = "self" | "other" | "ojek";
 function MethodPage() {
   const ready = usePageReady();
   const [method, setMethod] = useState<Method | null>(null);
-  if (!ready) return <PageSkeleton withNav={false} />;
   const nav = useNavigate();
   const active = students.filter((s) => !s.pendingApproval);
   const needsSelect = active.length > 1;
+  if (!ready) return <PageSkeleton withNav={false} />;
 
   const items: { key: Method; icon: React.ReactNode; title: string; body: string }[] = [
     { key: "self", icon: <UserRound className="h-6 w-6" />, title: "Dijemput sendiri", body: "Orang tua yang datang menjemput." },
