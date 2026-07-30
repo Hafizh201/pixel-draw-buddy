@@ -29,6 +29,13 @@ export const Route = createFileRoute("/dashboard")({
 
 function Dashboard() {
   const ready = usePageReady(700);
+
+  if (!ready) return <DashboardSkeleton />;
+
+  return <DashboardContent />;
+}
+
+function DashboardContent() {
   const session = useSession();
   const nav = useNavigate();
   const { current } = useActivePickup();
@@ -38,10 +45,6 @@ function Dashboard() {
   useEffect(() => {
     if (!session.signedIn) nav({ to: "/login" });
   }, [session.signedIn, nav]);
-
-  if (!ready) return <DashboardSkeleton />;
-
-
 
   return (
     <PhoneShell>
