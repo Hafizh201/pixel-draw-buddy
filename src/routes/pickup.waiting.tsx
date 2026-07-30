@@ -32,11 +32,11 @@ export const Route = createFileRoute("/pickup/waiting")({
 function WaitingPage() {
   const ready = usePageReady();
   const { current } = useActivePickup();
-  if (!ready) return <MonitoringSkeleton />;
   const nav = useNavigate();
   const [extras, setExtras] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [tick, setTick] = useState(0);
+  if (!ready) return <MonitoringSkeleton />;
 
   if (!current) {
     return (

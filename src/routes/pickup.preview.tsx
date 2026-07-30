@@ -31,13 +31,13 @@ export const Route = createFileRoute("/pickup/preview")({
 function PreviewPage() {
   const ready = usePageReady();
   const { s } = Route.useSearch();
-  if (!ready) return <FormSkeleton />;
+  const [checks, setChecks] = useState({ data: false, kontak: false });
+  const nav = useNavigate();
   const draft = getDraft();
   const studentIds = s.split(",");
   const chosen = studentIds.map((id: string) => students.find((x) => x.id === id)!).filter(Boolean);
-  const [checks, setChecks] = useState({ data: false, kontak: false });
   const allChecked = checks.data && checks.kontak;
-  const nav = useNavigate();
+  if (!ready) return <FormSkeleton />;
 
   const rows: [string, string][] = [
     ["Siswa", chosen.map((c: { name: string }) => c.name).join(", ")],

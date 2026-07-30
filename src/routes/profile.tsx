@@ -26,9 +26,9 @@ export const Route = createFileRoute("/profile")({
 function Profile() {
   const ready = usePageReady();
   const session = useSession();
-  if (!ready) return <PageSkeleton />;
   const settings = useSettings();
   const nav = useNavigate();
+  if (!ready) return <PageSkeleton />;
 
   const items = [
     { to: "/children", icon: <Users className="h-5 w-5" />, title: "Data Anak", body: "Kelola siswa Anda" },

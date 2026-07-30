@@ -30,7 +30,6 @@ export const Route = createFileRoute("/dashboard")({
 function Dashboard() {
   const ready = usePageReady(700);
   const session = useSession();
-  if (!ready) return <DashboardSkeleton />;
   const nav = useNavigate();
   const { current } = useActivePickup();
   const active = students.filter((s) => !s.pendingApproval);
@@ -39,6 +38,10 @@ function Dashboard() {
   useEffect(() => {
     if (!session.signedIn) nav({ to: "/login" });
   }, [session.signedIn, nav]);
+
+  if (!ready) return <DashboardSkeleton />;
+
+
 
   return (
     <PhoneShell>
