@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { sessionStore } from "@/lib/state/stores";
 import { PhoneShell } from "@/components/layout/PhoneShell";
-import { PhoneCall } from "lucide-react";
+import { Megaphone } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,10 +30,10 @@ function Splash() {
     <PhoneShell padded={false}>
       <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-hero px-8 text-primary-foreground">
         <div className="grid h-24 w-24 place-items-center rounded-3xl bg-white/15 shadow-glow animate-scale-in">
-          <PhoneCall className="h-10 w-10" />
+          <Megaphone className="h-10 w-10" />
         </div>
-        <h1 className="mt-6 font-display text-3xl font-bold">Panggil</h1>
-        <p className="mt-2 text-sm text-white/70">Pendamping penjemputan siswa</p>
+        <h1 className="mt-6 font-montserrat text-6xl font-extrabold tracking-[5px]">VOCA</h1>
+        <p className="mt-2 text-xs text-white/70 italic">School Voice Announcement Platform</p>
         <div className="mt-10 flex gap-1.5">
           <span className="h-2 w-2 rounded-full bg-white/80 animate-pulse" />
           <span className="h-2 w-2 rounded-full bg-white/60 animate-pulse [animation-delay:150ms]" />

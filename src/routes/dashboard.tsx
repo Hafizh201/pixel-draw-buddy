@@ -14,6 +14,7 @@ import { students, dismissalTime } from "@/lib/dummy/data";
 import { useSession, useActivePickup } from "@/lib/state/stores";
 import { greeting } from "@/lib/format/utils";
 import { PhoneCall, History, ClipboardList, Wifi, Bell, LifeBuoy } from "lucide-react";
+import { AutoPickupGeofence } from "@/components/monitoring/AutoPickupGeofence";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -50,8 +51,8 @@ function DashboardContent() {
     <PhoneShell>
       <div className="flex items-center justify-between px-5 pt-6">
         <div className="min-w-0">
-          <p className="text-xs font-semibold text-muted-foreground">{greeting()},</p>
-          <h1 className="truncate font-display text-2xl font-bold text-ink">Wali {primary?.nickname}</h1>
+          <p className="text-xs font-semibold text-muted-foreground">Assalamu’alaikum, {greeting()}</p>
+          <h1 className="truncate font-display text-2xl font-bold text-ink">Wali Murid {primary?.nickname}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Chip tone="success"><Wifi className="h-3 w-3" /> Terhubung</Chip>
@@ -67,7 +68,7 @@ function DashboardContent() {
       <div className="mt-5">
         <StudentHeroCard student={primary} />
       </div>
-
+      <AutoPickupGeofence />
       <div className="mx-5 mt-4 grid grid-cols-2 gap-3">
         <QuickAction
           to="/pickup/method"
@@ -80,30 +81,30 @@ function DashboardContent() {
         <QuickAction to="/attendance-today" icon={<ClipboardList className="h-5 w-5" />} title="Presensi Hari Ini" body="Anak Anda" />
         <QuickAction to="/help" icon={<LifeBuoy className="h-5 w-5" />} title="Bantuan" body="Panduan & kontak" />
       </div>
-
+{/*
       <div className="mt-8">
         <SectionHeader title="Status Sistem" />
         <SystemStatusCard />
       </div>
-
+*/}
       <div className="mt-8">
         <SectionHeader title="Pengumuman Sekolah" action={<Link to="/school" className="text-xs font-semibold text-primary">Semua</Link>} />
         <AnnouncementList />
       </div>
-
+{/*
       <div className="mt-8">
         <SectionHeader title="Tips Penjemputan" />
         <TipsCard />
       </div>
-
+*/}
       <div className="mt-8">
         <SectionHeader title="Penjemputan Terakhir" action={<Link to="/history" className="text-xs font-semibold text-primary">Lihat semua</Link>} />
         <RecentPickupsCard />
       </div>
 
-      <div className="mx-5 mt-8">
+      {/* <div className="mx-5 mt-8"> 
         <BigButton onClick={() => nav({ to: "/pickup/method" })}>Mulai Penjemputan</BigButton>
-      </div>
+      </div> */}
 
       <BottomNav />
     </PhoneShell>

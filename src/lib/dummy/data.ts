@@ -15,9 +15,9 @@ export type Student = {
 export const students: Student[] = [
   {
     id: "s1",
-    name: "Muhammad Fauzan Azami",
-    nickname: "Fauzan",
-    className: "VIII B",
+    name: "Muhammad Rizky Apalah",
+    nickname: "Rizky",
+    className: "VII A",
     nis: "20241023",
     avatarColor: "oklch(0.65 0.15 40)",
     attendedAt: "06.52",
@@ -99,4 +99,4 @@ export const secondCallOptions = [
 ];
 
 export const dismissalTime = "14.00";
-export const schoolName = "SMP Nusa Bangsa";
+export const schoolName = "SMPIT Abu Bakar Fullday School";
