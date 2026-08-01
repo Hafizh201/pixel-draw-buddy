@@ -31,11 +31,14 @@ function SelectStudent() {
   const { m } = Route.useSearch();
   const active = students.filter((s) => !s.pendingApproval);
   const [selected, setSelected] = useState<string[]>([active[0].id]);
+  const [friendOpen, setFriendOpen] = useState(false);
+  const [friendList, setFriendList] = useState<Friend[]>([]);
   const nav = useNavigate();
   if (!ready) return <PageSkeleton withNav={false} />;
 
   const toggle = (id: string) =>
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
 
   return (
     <PhoneShell>
