@@ -54,8 +54,8 @@ const TONE: Record<GpsState, { ring: string; text: string; bg: string; chip: str
     ring: "ring-success/40",
     text: "text-success-foreground",
     bg: "from-success/25 to-success/10",
-
-
+    chip: "bg-success/25 text-success-foreground",
+    label: "Tiba",
   },
   unavailable: {
     ring: "ring-warning/50",
