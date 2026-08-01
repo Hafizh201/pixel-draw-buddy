@@ -154,6 +154,25 @@ export function FriendPicker({
           )}
         </div>
       </div>
+
+      <ConfirmDialog
+        open={pending !== null}
+        title="Tambahkan teman ini?"
+        description={
+          <>
+            Anda akan menambahkan <span className="font-semibold text-ink">{pending?.name}</span> (Kelas{" "}
+            {pending?.className}) ke daftar jemput bersama. Pastikan Anda benar-benar berhak menjemput siswa ini.
+          </>
+        }
+        confirmLabel="Ya, Tambahkan"
+        cancelLabel="Batal"
+        onCancel={() => setPending(null)}
+        onConfirm={() => {
+          if (pending) onAdd(pending);
+          setPending(null);
+        }}
+      />
     </div>
   );
 }
+
