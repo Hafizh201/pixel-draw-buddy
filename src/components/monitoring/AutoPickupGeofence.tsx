@@ -54,8 +54,8 @@ const TONE: Record<GpsState, { ring: string; text: string; bg: string; chip: str
     ring: "ring-success/40",
     text: "text-success-foreground",
     bg: "from-success/25 to-success/10",
-
-
+    chip: "bg-success/25 text-success-foreground",
+    label: "Tiba",
   },
   unavailable: {
     ring: "ring-warning/50",
@@ -269,7 +269,7 @@ export function AutoPickupGeofence() {
 function StateIcon({ state }: { state: GpsState }) {
   const cls = "h-3 w-3";
   if (state === "searching") return <Loader2 className={cn(cls, "animate-spin")} />;
-  if (state === "arrived") return 
+  if (state === "arrived") return <CheckCircle2 className={cls} />; 
   if (state === "unavailable") return <AlertTriangle className={cls} />;
   return <MapPin className={cls} />;
 }
