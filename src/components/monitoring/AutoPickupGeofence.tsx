@@ -331,43 +331,7 @@ function Radar({ state, pct }: { state: GpsState; pct: number }) {
 }
 
 function SafetyBanner({ dismissed, studentName }: { dismissed: boolean; studentName: string }) {
-  const [closed, setClosed] = useState(false);
-  if (closed) return null;
-  return (
-    <div className={cn(
-      "flex items-start gap-3 rounded-2xl border p-3 shadow-card",
-      dismissed
-        ? "border-success/40 bg-success/10"
-        : "border-warning/40 bg-warning/15",
-    )}>
-      <div className={cn(
-        "grid h-9 w-9 shrink-0 place-items-center rounded-xl",
-        dismissed ? "bg-success/25 text-success-foreground" : "bg-warning/30 text-warning-foreground",
-      )}>
-        {dismissed ? <CheckCircle2 className="h-4 w-4" /> : <Clock className="h-4 w-4" />}
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className={cn(
-          "text-xs font-bold",
-          dismissed ? "text-success-foreground" : "text-warning-foreground",
-        )}>
-          {dismissed ? "Presensi Pulang Berhasil" : "Belum Presensi Pulang"}
-        </p>
-        <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
-          {dismissed
-            ? `${studentName} telah tercatat presensi pulang digital hari ini.`
-            : `${studentName} belum tercatat presensi pulang. Pastikan siswa presensi sebelum meninggalkan sekolah.`}
-        </p>
-      </div>
-      <button
-        onClick={() => setClosed(true)}
-        aria-label="Tutup"
-        className="grid h-7 w-7 place-items-center rounded-lg text-muted-foreground hover:bg-black/5"
-      >
-        <X className="h-3.5 w-3.5" />
-      </button>
-    </div>
-  );
+
 }
 
 function MonitoringSummary({

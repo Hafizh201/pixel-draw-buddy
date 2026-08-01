@@ -48,10 +48,10 @@ export function StudentHeroCard({ student }: { student: Student }) {
         )}
       </div>
 
-      {/* Divider */}
-      <div className="my-5 border-t border-white/15" />
+      {/* Divider 
+      <div className="my-5 border-t border-white/15" />*/}
 
-      {/* ===================== SISWA 2 ===================== */}
+      {/* ===================== SISWA 2 ===================== 
       <div className="flex items-center gap-4">
         <div
           className="grid h-16 w-16 place-items-center rounded-2xl font-display text-2xl font-bold text-white shadow-glow"
@@ -83,7 +83,7 @@ export function StudentHeroCard({ student }: { student: Student }) {
             Belum presensi pulang
           </Chip>
         )}
-      </div>
+      </div>*/}
     </div>
   );
 }
