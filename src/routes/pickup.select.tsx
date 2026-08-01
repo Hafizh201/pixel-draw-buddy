@@ -7,7 +7,9 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
-import { students } from "@/lib/dummy/data";
+import { students, type Friend } from "@/lib/dummy/data";
+import { FriendPicker } from "@/components/pickup/FriendPicker";
+
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,11 +33,14 @@ function SelectStudent() {
   const { m } = Route.useSearch();
   const active = students.filter((s) => !s.pendingApproval);
   const [selected, setSelected] = useState<string[]>([active[0].id]);
+  const [friendOpen, setFriendOpen] = useState(false);
+  const [friendList, setFriendList] = useState<Friend[]>([]);
   const nav = useNavigate();
   if (!ready) return <PageSkeleton withNav={false} />;
 
   const toggle = (id: string) =>
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
 
   return (
     <PhoneShell>
@@ -68,7 +73,16 @@ function SelectStudent() {
             </button>
           );
         })}
-        <BigTeman>+ Teman ( Dijemput Bersama )</BigTeman>
+        <FriendPicker
+          open={friendOpen}
+          selected={friendList}
+          onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
+          onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
+        />
+        <BigTeman onClick={() => setFriendOpen((v) => !v)}>
+          {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
+        </BigTeman>
+
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
         <BigButton
