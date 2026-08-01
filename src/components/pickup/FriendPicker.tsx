@@ -86,7 +86,13 @@ export function FriendPicker({
               </div>
 
               <div className="space-y-2">
-                {results.length === 0 && (
+                {query.length === 0 && (
+                  <p className="rounded-2xl bg-surface-2 px-3 py-3 text-xs leading-relaxed text-muted-foreground">
+                    Ketik nama teman terlebih dahulu untuk menampilkan daftar. Daftar sengaja disembunyikan agar tidak
+                    ada nama yang tertambah karena tidak sengaja tersentuh.
+                  </p>
+                )}
+                {query.length > 0 && results.length === 0 && (
                   <p className="px-1 py-2 text-xs text-muted-foreground">Tidak ada nama yang cocok di kelas {cls}.</p>
                 )}
                 {results.map((f) => {
@@ -96,7 +102,8 @@ export function FriendPicker({
                       key={f.id}
                       type="button"
                       disabled={added}
-                      onClick={() => onAdd(f)}
+                      onClick={() => setPending(f)}
+
                       className={cn(
                         "flex w-full items-center gap-3 rounded-2xl border p-3 text-left transition active:scale-[0.99]",
                         added ? "border-primary/40 bg-primary/5" : "border-border bg-surface",
