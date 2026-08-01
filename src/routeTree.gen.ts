@@ -30,6 +30,7 @@ import { Route as PickupSelectRouteImport } from './routes/pickup.select'
 import { Route as PickupWaitingRouteImport } from './routes/pickup.waiting'
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as PickupFormMethodRouteImport } from './routes/pickup.form.$method'
+import { Route as PickupFormTemanRouteImport } from './routes/pickup.form.teman'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -136,6 +137,11 @@ const PickupFormMethodRoute = PickupFormMethodRouteImport.update({
   path: '/pickup/form/$method',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PickupFormTemanRoute = PickupFormTemanRouteImport.update({
+  id: '/pickup/form/teman',
+  path: '/pickup/form/teman',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/pickup/waiting': typeof PickupWaitingRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/pickup/form/$method': typeof PickupFormMethodRoute
+  '/pickup/form/teman': typeof PickupFormTemanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/pickup/waiting': typeof PickupWaitingRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/pickup/form/$method': typeof PickupFormMethodRoute
+  '/pickup/form/teman': typeof PickupFormTemanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/pickup/waiting': typeof PickupWaitingRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/pickup/form/$method': typeof PickupFormMethodRoute
+  '/pickup/form/teman': typeof PickupFormTemanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/pickup/waiting'
     | '/settings/accessibility'
     | '/pickup/form/$method'
+    | '/pickup/form/teman'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/pickup/waiting'
     | '/settings/accessibility'
     | '/pickup/form/$method'
+    | '/pickup/form/teman'
   id:
     | '__root__'
     | '/'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/pickup/waiting'
     | '/settings/accessibility'
     | '/pickup/form/$method'
+    | '/pickup/form/teman'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -300,6 +312,7 @@ export interface RootRouteChildren {
   PickupSelectRoute: typeof PickupSelectRoute
   PickupWaitingRoute: typeof PickupWaitingRoute
   PickupFormMethodRoute: typeof PickupFormMethodRoute
+  PickupFormTemanRoute: typeof PickupFormTemanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -451,6 +464,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PickupFormMethodRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pickup/form/teman': {
+      id: '/pickup/form/teman'
+      path: '/pickup/form/teman'
+      fullPath: '/pickup/form/teman'
+      preLoaderRoute: typeof PickupFormTemanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -487,6 +507,7 @@ const rootRouteChildren: RootRouteChildren = {
   PickupSelectRoute: PickupSelectRoute,
   PickupWaitingRoute: PickupWaitingRoute,
   PickupFormMethodRoute: PickupFormMethodRoute,
+  PickupFormTemanRoute: PickupFormTemanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
+import { BigTeman } from "@/components/common/teman";
 import { students } from "@/lib/dummy/data";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -67,6 +68,8 @@ function SelectStudent() {
             </button>
           );
         })}
+        <BigTeman disabled={selected.length === 0}
+          onClick={() => nav({ to: `/pickup/form/teman`, search: { s: selected.join(",") } })}>+ Teman ( Dijemput Bersama )</BigTeman>
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
         <BigButton
