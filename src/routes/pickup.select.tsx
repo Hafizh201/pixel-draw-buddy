@@ -7,7 +7,9 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
-import { students } from "@/lib/dummy/data";
+import { students, type Friend } from "@/lib/dummy/data";
+import { FriendPicker } from "@/components/pickup/FriendPicker";
+
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
