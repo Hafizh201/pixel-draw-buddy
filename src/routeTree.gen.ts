@@ -18,6 +18,7 @@ import { Route as HistoryRouteImport } from './routes/history'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MonitoringRouteImport } from './routes/monitoring'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SchoolRouteImport } from './routes/school'
 import { Route as SettingsRouteImport } from './routes/settings'
@@ -75,6 +76,11 @@ const MonitoringRoute = MonitoringRouteImport.update({
 const NotificationsRoute = NotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/school': typeof SchoolRoute
   '/settings': typeof SettingsRouteWithChildren
@@ -177,6 +184,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/school': typeof SchoolRoute
   '/settings': typeof SettingsRouteWithChildren
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
   '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/school': typeof SchoolRoute
   '/settings': typeof SettingsRouteWithChildren
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/monitoring'
     | '/notifications'
+    | '/privacy'
     | '/profile'
     | '/school'
     | '/settings'
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/monitoring'
     | '/notifications'
+    | '/privacy'
     | '/profile'
     | '/school'
     | '/settings'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/monitoring'
     | '/notifications'
+    | '/privacy'
     | '/profile'
     | '/school'
     | '/settings'
@@ -301,6 +313,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MonitoringRoute: typeof MonitoringRoute
   NotificationsRoute: typeof NotificationsRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProfileRoute: typeof ProfileRoute
   SchoolRoute: typeof SchoolRoute
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -378,6 +391,13 @@ declare module '@tanstack/react-router' {
       path: '/notifications'
       fullPath: '/notifications'
       preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -496,6 +516,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MonitoringRoute: MonitoringRoute,
   NotificationsRoute: NotificationsRoute,
+  PrivacyRoute: PrivacyRoute,
   ProfileRoute: ProfileRoute,
   SchoolRoute: SchoolRoute,
   SettingsRoute: SettingsRouteWithChildren,
@@ -512,3 +533,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

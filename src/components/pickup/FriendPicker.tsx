@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, Check, Search, UserPlus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { friendClasses, friends, type Friend } from "@/lib/dummy/data";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 export function FriendPicker({
   open,
