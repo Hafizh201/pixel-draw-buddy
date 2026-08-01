@@ -269,7 +269,7 @@ export function AutoPickupGeofence() {
 function StateIcon({ state }: { state: GpsState }) {
   const cls = "h-3 w-3";
   if (state === "searching") return <Loader2 className={cn(cls, "animate-spin")} />;
-  if (state === "arrived") return 
+  if (state === "arrived") return <CheckCircle2 className={cls} />; 
   if (state === "unavailable") return <AlertTriangle className={cls} />;
   return <MapPin className={cls} />;
 }
