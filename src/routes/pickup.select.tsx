@@ -73,7 +73,16 @@ function SelectStudent() {
             </button>
           );
         })}
-        <BigTeman>+ Teman ( Dijemput Bersama )</BigTeman>
+        <FriendPicker
+          open={friendOpen}
+          selected={friendList}
+          onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
+          onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
+        />
+        <BigTeman onClick={() => setFriendOpen((v) => !v)}>
+          {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
+        </BigTeman>
+
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
         <BigButton
