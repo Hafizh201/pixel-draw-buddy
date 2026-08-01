@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, Check, Search, UserPlus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { friendClasses, friends, type Friend } from "@/lib/dummy/data";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 export function FriendPicker({
   open,
@@ -16,13 +17,14 @@ export function FriendPicker({
 }) {
   const [cls, setCls] = useState<string | null>(null);
   const [q, setQ] = useState("");
+  const [pending, setPending] = useState<Friend | null>(null);
 
+  const query = q.trim().toLowerCase();
   const results = useMemo(() => {
-    if (!cls) return [];
-    return friends.filter(
-      (f) => f.className === cls && f.name.toLowerCase().includes(q.trim().toLowerCase()),
-    );
-  }, [cls, q]);
+    if (!cls || query.length === 0) return [];
+    return friends.filter((f) => f.className === cls && f.name.toLowerCase().includes(query));
+  }, [cls, query]);
+
 
   return (
     <div
@@ -84,7 +86,13 @@ export function FriendPicker({
               </div>
 
               <div className="space-y-2">
-                {results.length === 0 && (
+                {query.length === 0 && (
+                  <p className="rounded-2xl bg-surface-2 px-3 py-3 text-xs leading-relaxed text-muted-foreground">
+                    Ketik nama teman terlebih dahulu untuk menampilkan daftar. Daftar sengaja disembunyikan agar tidak
+                    ada nama yang tertambah karena tidak sengaja tersentuh.
+                  </p>
+                )}
+                {query.length > 0 && results.length === 0 && (
                   <p className="px-1 py-2 text-xs text-muted-foreground">Tidak ada nama yang cocok di kelas {cls}.</p>
                 )}
                 {results.map((f) => {
@@ -94,7 +102,8 @@ export function FriendPicker({
                       key={f.id}
                       type="button"
                       disabled={added}
-                      onClick={() => onAdd(f)}
+                      onClick={() => setPending(f)}
+
                       className={cn(
                         "flex w-full items-center gap-3 rounded-2xl border p-3 text-left transition active:scale-[0.99]",
                         added ? "border-primary/40 bg-primary/5" : "border-border bg-surface",
@@ -145,6 +154,25 @@ export function FriendPicker({
           )}
         </div>
       </div>
+
+      <ConfirmDialog
+        open={pending !== null}
+        title="Tambahkan teman ini?"
+        description={
+          <>
+            Anda akan menambahkan <span className="font-semibold text-ink">{pending?.name}</span> (Kelas{" "}
+            {pending?.className}) ke daftar jemput bersama. Pastikan Anda benar-benar berhak menjemput siswa ini.
+          </>
+        }
+        confirmLabel="Ya, Tambahkan"
+        cancelLabel="Batal"
+        onCancel={() => setPending(null)}
+        onConfirm={() => {
+          if (pending) onAdd(pending);
+          setPending(null);
+        }}
+      />
     </div>
   );
 }
+

@@ -9,6 +9,7 @@ import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
 import { students, type Friend } from "@/lib/dummy/data";
 import { FriendPicker } from "@/components/pickup/FriendPicker";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -35,11 +36,25 @@ function SelectStudent() {
   const [selected, setSelected] = useState<string[]>([active[0].id]);
   const [friendOpen, setFriendOpen] = useState(false);
   const [friendList, setFriendList] = useState<Friend[]>([]);
+  const [closeAsk, setCloseAsk] = useState(false);
+  const [submitAsk, setSubmitAsk] = useState(false);
   const nav = useNavigate();
   if (!ready) return <PageSkeleton withNav={false} />;
 
   const toggle = (id: string) =>
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
+  const handleToggleFriend = () => {
+    if (friendOpen && friendList.length > 0) {
+      setCloseAsk(true);
+      return;
+    }
+    setFriendOpen((v) => !v);
+  };
+
+  const goNext = () => nav({ to: `/pickup/form/${m}`, search: { s: selected.join(",") } });
+
+
 
 
   return (
@@ -79,19 +94,54 @@ function SelectStudent() {
           onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
           onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
         />
-        <BigTeman onClick={() => setFriendOpen((v) => !v)}>
+        <BigTeman onClick={handleToggleFriend}>
           {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
         </BigTeman>
 
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
-        <BigButton
-          disabled={selected.length === 0}
-          onClick={() => nav({ to: `/pickup/form/${m}`, search: { s: selected.join(",") } })}
-        >
+        <BigButton disabled={selected.length === 0} onClick={() => setSubmitAsk(true)}>
           Pilih {selected.length} siswa
         </BigButton>
       </div>
+
+      <ConfirmDialog
+        open={closeAsk}
+        title="Simpan daftar teman?"
+        description={`Anda menambahkan ${friendList.length} teman untuk dijemput bersama. Simpan daftar ini atau buang semuanya?`}
+        confirmLabel="Simpan & Lanjut"
+        cancelLabel="Buang Daftar"
+        onCancel={() => {
+          setFriendList([]);
+          setCloseAsk(false);
+          setFriendOpen(false);
+        }}
+        onConfirm={() => {
+          setCloseAsk(false);
+          setFriendOpen(false);
+        }}
+      />
+
+      <ConfirmDialog
+        open={submitAsk}
+        title="Konfirmasi penjemputan"
+        description={
+          <>
+            Anda akan mengajukan penjemputan untuk{" "}
+            <span className="font-semibold text-ink">{selected.length} siswa</span>
+            {friendList.length > 0 ? ` dan ${friendList.length} teman` : ""}. Pastikan seluruh nama sudah benar sebelum
+            melanjutkan.
+          </>
+        }
+        confirmLabel="Ya, Lanjutkan"
+        cancelLabel="Periksa Lagi"
+        onCancel={() => setSubmitAsk(false)}
+        onConfirm={() => {
+          setSubmitAsk(false);
+          goNext();
+        }}
+      />
+
     </PhoneShell>
   );
 }
