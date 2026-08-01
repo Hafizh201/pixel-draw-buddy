@@ -100,3 +100,17 @@ export const secondCallOptions = [
 
 export const dismissalTime = "14.00";
 export const schoolName = "SMPIT Abu Bakar Fullday School";
+
+export type Friend = { id: string; name: string; className: string };
+
+export const friendClasses = ["7A", "7B", "8A", "8B", "9A", "9B"];
+
+export const friends: Friend[] = [
+  { id: "f1", name: "Ahmad Fathan", className: "8A" },
+  { id: "f2", name: "Rizky Ramadhan", className: "8A" },
+  { id: "f3", name: "Naufal Akbar", className: "9B" },
+  { id: "f4", name: "Fauzan Malik", className: "7B" },
+  { id: "f5", name: "Salsabila Putri", className: "7A" },
+  { id: "f6", name: "Dimas Prayoga", className: "8B" },
+  { id: "f7", name: "Aisyah Rahma", className: "9A" },
+];
