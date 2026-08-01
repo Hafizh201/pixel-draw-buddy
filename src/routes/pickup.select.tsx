@@ -9,6 +9,7 @@ import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
 import { students, type Friend } from "@/lib/dummy/data";
 import { FriendPicker } from "@/components/pickup/FriendPicker";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
