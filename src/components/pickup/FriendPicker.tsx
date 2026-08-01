@@ -17,13 +17,14 @@ export function FriendPicker({
 }) {
   const [cls, setCls] = useState<string | null>(null);
   const [q, setQ] = useState("");
+  const [pending, setPending] = useState<Friend | null>(null);
 
+  const query = q.trim().toLowerCase();
   const results = useMemo(() => {
-    if (!cls) return [];
-    return friends.filter(
-      (f) => f.className === cls && f.name.toLowerCase().includes(q.trim().toLowerCase()),
-    );
-  }, [cls, q]);
+    if (!cls || query.length === 0) return [];
+    return friends.filter((f) => f.className === cls && f.name.toLowerCase().includes(query));
+  }, [cls, query]);
+
 
   return (
     <div
