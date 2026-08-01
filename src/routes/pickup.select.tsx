@@ -35,11 +35,25 @@ function SelectStudent() {
   const [selected, setSelected] = useState<string[]>([active[0].id]);
   const [friendOpen, setFriendOpen] = useState(false);
   const [friendList, setFriendList] = useState<Friend[]>([]);
+  const [closeAsk, setCloseAsk] = useState(false);
+  const [submitAsk, setSubmitAsk] = useState(false);
   const nav = useNavigate();
   if (!ready) return <PageSkeleton withNav={false} />;
 
   const toggle = (id: string) =>
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
+  const handleToggleFriend = () => {
+    if (friendOpen && friendList.length > 0) {
+      setCloseAsk(true);
+      return;
+    }
+    setFriendOpen((v) => !v);
+  };
+
+  const goNext = () => nav({ to: `/pickup/form/${m}`, search: { s: selected.join(",") } });
+
+
 
 
   return (
