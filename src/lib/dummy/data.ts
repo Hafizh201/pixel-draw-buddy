@@ -114,3 +114,40 @@ export const friends: Friend[] = [
   { id: "f6", name: "Dimas Prayoga", className: "8B" },
   { id: "f7", name: "Aisyah Rahma", className: "9A" },
 ];
+
+export type ClassSchedule = { masuk: string; pulang: string };
+
+/** Jam masuk & pulang per tingkat kelas (berbeda tiap kelas). */
+export const classSchedules: Record<string, ClassSchedule> = {
+  "1": { masuk: "07.00", pulang: "11.30" },
+  "2": { masuk: "07.00", pulang: "12.00" },
+  "3": { masuk: "07.00", pulang: "12.30" },
+  "4": { masuk: "06.45", pulang: "13.00" },
+  "5": { masuk: "06.45", pulang: "13.30" },
+  "6": { masuk: "06.45", pulang: "14.00" },
+  "7": { masuk: "06.30", pulang: "14.30" },
+  "8": { masuk: "06.30", pulang: "15.00" },
+  "9": { masuk: "06.30", pulang: "15.30" },
+};
+
+const ROMAN: Record<string, string> = {
+  I: "1", II: "2", III: "3", IV: "4", V: "5", VI: "6", VII: "7", VIII: "8", IX: "9",
+};
+
+/** Normalisasi "VII A" / "7A" -> tingkat "7". */
+export function classLevel(className: string): string {
+  const token = className.trim().toUpperCase().split(/[\s-]+/)[0];
+  const digits = token.match(/^\d+/);
+  if (digits) return digits[0];
+  const roman = token.match(/^[IVX]+/);
+  if (roman && ROMAN[roman[0]]) return ROMAN[roman[0]];
+  return "";
+}
+
+export function scheduleFor(className: string): ClassSchedule {
+  return classSchedules[classLevel(className)] ?? { masuk: "07.00", pulang: dismissalTime };
+}
+
+export function dismissalFor(className: string): string {
+  return scheduleFor(className).pulang;
+}

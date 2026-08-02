@@ -7,11 +7,11 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
-import { students, type Friend } from "@/lib/dummy/data";
+import { students, type Friend, dismissalFor } from "@/lib/dummy/data";
 import { FriendPicker } from "@/components/pickup/FriendPicker";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
-import { Check } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({ m: z.enum(["self", "other", "ojek"]).default("self") });
@@ -52,7 +52,16 @@ function SelectStudent() {
     setFriendOpen((v) => !v);
   };
 
-  const goNext = () => nav({ to: `/pickup/form/${m}`, search: { s: selected.join(",") } });
+  const allowFriends = m !== "ojek";
+
+  const goNext = () =>
+    nav({
+      to: `/pickup/form/${m}`,
+      search: {
+        s: selected.join(","),
+        ...(allowFriends && friendList.length > 0 ? { f: friendList.map((x) => x.id).join(",") } : {}),
+      },
+    });
 
 
 
@@ -81,6 +90,9 @@ function SelectStudent() {
               <div className="min-w-0 flex-1">
                 <p className="font-display text-base font-bold text-ink">{s.name}</p>
                 <p className="text-xs text-muted-foreground">Kelas {s.className} · NIS {s.nis}</p>
+                <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-bold text-ink">
+                  <Clock className="h-3 w-3 text-primary" /> Pulang {dismissalFor(s.className)}
+                </span>
               </div>
               <span className={cn("grid h-6 w-6 place-items-center rounded-md border-2", checked ? "border-primary bg-primary text-white" : "border-border")}>
                 {checked && <Check className="h-4 w-4" />}
@@ -88,15 +100,19 @@ function SelectStudent() {
             </button>
           );
         })}
-        <FriendPicker
-          open={friendOpen}
-          selected={friendList}
-          onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
-          onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
-        />
-        <BigTeman onClick={handleToggleFriend}>
-          {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
-        </BigTeman>
+        {allowFriends && (
+          <>
+            <FriendPicker
+              open={friendOpen}
+              selected={friendList}
+              onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
+              onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
+            />
+            <BigTeman onClick={handleToggleFriend}>
+              {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
+            </BigTeman>
+          </>
+        )}
 
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
@@ -107,20 +123,19 @@ function SelectStudent() {
 
       <ConfirmDialog
         open={closeAsk}
-        title="Simpan daftar teman?"
-        description={`Anda menambahkan ${friendList.length} teman untuk dijemput bersama. Simpan daftar ini atau buang semuanya?`}
-        confirmLabel="Simpan & Lanjut"
-        cancelLabel="Buang Daftar"
-        onCancel={() => {
+        title="Buang daftar teman?"
+        description={`Anda menambahkan ${friendList.length} teman untuk dijemput bersama. Jika dibuang, seluruh nama pada daftar akan dihapus.`}
+        confirmLabel="Buang Daftar"
+        cancelLabel="Batal"
+        tone="danger"
+        onCancel={() => setCloseAsk(false)}
+        onConfirm={() => {
           setFriendList([]);
           setCloseAsk(false);
           setFriendOpen(false);
         }}
-        onConfirm={() => {
-          setCloseAsk(false);
-          setFriendOpen(false);
-        }}
       />
+
 
       <ConfirmDialog
         open={submitAsk}
