@@ -8,8 +8,9 @@ import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { SmartNoteAssistant } from "@/components/pickup/SmartNoteAssistant";
 import { PlateInput, TextField, SelectField } from "@/components/pickup/Fields";
-import { students, friends } from "@/lib/dummy/data";
+import { students, friends, dismissalFor } from "@/lib/dummy/data";
 import { isValidPlate } from "@/lib/format/utils";
+import { Users, Clock, Megaphone } from "lucide-react";
 
 const searchSchema = z.object({ s: z.string().optional(), f: z.string().optional() });
 
