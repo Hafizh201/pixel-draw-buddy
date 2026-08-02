@@ -13,7 +13,7 @@ import { formatPlate } from "@/lib/format/utils";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const searchSchema = z.object({ s: z.string() });
+const searchSchema = z.object({ s: z.string(), f: z.string().optional() });
 
 export const Route = createFileRoute("/pickup/preview")({
   validateSearch: (s) => searchSchema.parse(s),

@@ -8,10 +8,10 @@ import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { SmartNoteAssistant } from "@/components/pickup/SmartNoteAssistant";
 import { PlateInput, TextField, SelectField } from "@/components/pickup/Fields";
-import { students } from "@/lib/dummy/data";
+import { students, friends } from "@/lib/dummy/data";
 import { isValidPlate } from "@/lib/format/utils";
 
-const searchSchema = z.object({ s: z.string().optional() });
+const searchSchema = z.object({ s: z.string().optional(), f: z.string().optional() });
 
 export const Route = createFileRoute("/pickup/form/$method")({
   validateSearch: (s) => searchSchema.parse(s),
@@ -43,7 +43,7 @@ let draftMemo = { ...draft };
 function FormPage() {
   const ready = usePageReady();
   const { method } = Route.useParams() as { method: "self" | "other" | "ojek" };
-  const { s } = Route.useSearch();
+  const { s, f } = Route.useSearch();
   const nav = useNavigate();
   const [state, setState] = useState({ ...draftMemo, method });
   const [noteValid, setNoteValid] = useState(true);
@@ -53,6 +53,10 @@ function FormPage() {
     setState((p) => ({ ...p, [k]: v }));
 
   const studentIds = (s ?? students.filter((x) => !x.pendingApproval)[0].id).split(",");
+  const friendIds: string[] = method === "ojek" || !f ? [] : f.split(",").filter(Boolean);
+  const friendList = friendIds
+    .map((id) => friends.find((x) => x.id === id))
+    .filter((x): x is (typeof friends)[number] => Boolean(x));
 
   const plateOk = method !== "ojek" || isValidPlate(state.plate);
   const requiredOk =
@@ -65,9 +69,26 @@ function FormPage() {
       <TopBar
         title={method === "self" ? "Dijemput Sendiri" : method === "other" ? "Dijemput Orang Lain" : "Ojek Online"}
         back="/pickup/method"
-        subtitle={`Untuk ${studentIds.length} siswa`}
+        subtitle={`Untuk ${studentIds.length} siswa${friendList.length > 0 ? ` + ${friendList.length} teman` : ""}`}
       />
       <div className="space-y-4 p-5">
+        {friendList.length > 0 && (
+          <div className="rounded-3xl border border-border bg-surface p-4 shadow-card">
+            <p className="text-xs font-semibold text-muted-foreground">
+              Teman dijemput bersama ({friendList.length})
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {friendList.map((fr) => (
+                <span
+                  key={fr.id}
+                  className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-semibold text-ink"
+                >
+                  {fr.name} · {fr.className}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         {method === "other" && (
           <>
             <TextField label="Nama penjemput" value={state.pickerName} onChange={(v) => set("pickerName", v)} placeholder="Nama lengkap" />
@@ -138,7 +159,13 @@ function FormPage() {
           disabled={!canNext}
           onClick={() => {
             draftMemo = state;
-            nav({ to: "/pickup/preview", search: { s: studentIds.join(",") } });
+            nav({
+              to: "/pickup/preview",
+              search: {
+                s: studentIds.join(","),
+                ...(friendIds.length > 0 ? { f: friendIds.join(",") } : {}),
+              },
+            });
           }}
         >
           Lanjut ke Ringkasan
