@@ -53,7 +53,7 @@ function FormPage() {
     setState((p) => ({ ...p, [k]: v }));
 
   const studentIds = (s ?? students.filter((x) => !x.pendingApproval)[0].id).split(",");
-  const friendIds = method === "ojek" || !f ? [] : f.split(",").filter(Boolean);
+  const friendIds: string[] = method === "ojek" || !f ? [] : f.split(",").filter(Boolean);
   const friendList = friendIds
     .map((id) => friends.find((x) => x.id === id))
     .filter((x): x is (typeof friends)[number] => Boolean(x));
