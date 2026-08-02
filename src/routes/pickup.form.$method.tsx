@@ -8,7 +8,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { SmartNoteAssistant } from "@/components/pickup/SmartNoteAssistant";
 import { PlateInput, TextField, SelectField } from "@/components/pickup/Fields";
-import { students, friends, dismissalFor } from "@/lib/dummy/data";
+import { students, friends, dismissalFor, type Student, type Friend } from "@/lib/dummy/data";
 import { isValidPlate } from "@/lib/format/utils";
 import { Users, Clock, Megaphone } from "lucide-react";
 
@@ -55,22 +55,22 @@ function FormPage() {
 
   const studentIds = (s ?? students.filter((x) => !x.pendingApproval)[0].id).split(",");
   const friendIds: string[] = method === "ojek" || !f ? [] : f.split(",").filter(Boolean);
-  const friendList = friendIds
+  const friendList: Friend[] = friendIds
     .map((id) => friends.find((x) => x.id === id))
-    .filter((x): x is (typeof friends)[number] => Boolean(x));
+    .filter((x): x is Friend => Boolean(x));
 
-  const selectedStudents = studentIds
+  const selectedStudents: Student[] = studentIds
     .map((id: string) => students.find((x) => x.id === id))
-    .filter((x): x is (typeof students)[number] => Boolean(x));
+    .filter((x): x is Student => Boolean(x));
 
   const called = [
-    ...selectedStudents.map((st) => ({
+    ...selectedStudents.map((st: Student) => ({
       key: st.id,
       name: st.name,
       className: st.className,
       isFriend: false,
     })),
-    ...friendList.map((fr) => ({
+    ...friendList.map((fr: Friend) => ({
       key: fr.id,
       name: fr.name,
       className: fr.className,
