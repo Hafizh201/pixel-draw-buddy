@@ -15,8 +15,9 @@ export function SmartNoteAssistant({
   onValidityChange?: (valid: boolean) => void;
 }) {
   const [bad, setBad] = useState<string[]>([]);
+  const [showTemplates, setShowTemplates] = useState(true);
   const remaining = MAX_NOTE - value.length;
-  const suggestions = suggestionsFor(method);
+  const templates = suggestionsFor(method).slice(0, 3);
 
   useEffect(() => {
     const b = detectBadWords(value);
