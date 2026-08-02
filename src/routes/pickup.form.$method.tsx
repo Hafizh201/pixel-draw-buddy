@@ -198,7 +198,24 @@ function FormPage() {
           onChange={(v) => set("note", v)}
           onValidityChange={setNoteValid}
         />
+
+        <section className="rounded-3xl border border-primary/25 bg-primary/5 p-4">
+          <div className="flex items-center gap-2">
+            <span className="grid h-7 w-7 place-items-center rounded-xl bg-primary/15">
+              <Megaphone className="h-4 w-4 text-primary" />
+            </span>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
+              Teks yang akan dipanggilkan
+            </p>
+          </div>
+          <p className="mt-3 rounded-2xl bg-background/70 p-3 font-display text-[13px] font-semibold leading-relaxed text-ink">
+            “{callText}”
+          </p>
+        </section>
+
+        <div className="h-24" />
       </div>
+
 
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
         <BigButton
