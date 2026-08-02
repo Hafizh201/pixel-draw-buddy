@@ -60,17 +60,56 @@ export function SmartNoteAssistant({
           <p>Catatan mengandung kata tidak sesuai ({bad.join(", ")}). Mohon perbaiki sebelum mengirim.</p>
         </div>
       )}
-      <div className="flex snap-x gap-2 overflow-x-auto no-scrollbar">
-        {suggestions.map((s) => (
-          <button
-            key={s}
-            type="button"
-            onClick={() => onChange(s)}
-            className="shrink-0 snap-start rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-medium text-foreground shadow-card active:scale-95"
+      <div className="rounded-2xl border border-dashed border-border bg-surface-2/60 p-3">
+        <button
+          type="button"
+          onClick={() => setShowTemplates((v) => !v)}
+          className="flex w-full items-center justify-between gap-2"
+        >
+          <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            Template kalimat · maks. 3
+          </span>
+          <span
+            className={cn(
+              "relative h-5 w-9 rounded-full transition",
+              showTemplates ? "bg-primary" : "bg-border",
+            )}
           >
-            {s.length > 34 ? s.slice(0, 32) + "…" : s}
-          </button>
-        ))}
+            <span
+              className={cn(
+                "absolute top-0.5 h-4 w-4 rounded-full bg-background shadow-card transition-all",
+                showTemplates ? "left-[1.15rem]" : "left-0.5",
+              )}
+            />
+          </span>
+        </button>
+        <div
+          className={cn(
+            "grid transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            showTemplates ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+          )}
+        >
+          <div className="overflow-hidden">
+            <div className="mt-3 grid gap-2">
+              {templates.map((s, i) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => onChange(s)}
+                  className={cn(
+                    "flex items-start gap-2 rounded-xl border border-border bg-surface px-3 py-2 text-left text-[11px] font-medium leading-snug text-foreground shadow-card transition active:scale-[0.98] hover:border-primary/60",
+                    value.trim() === s && "border-primary bg-primary/5 text-primary",
+                  )}
+                >
+                  <span className="mt-[1px] grid h-4 w-4 shrink-0 place-items-center rounded-md bg-primary/10 text-[9px] font-bold text-primary">
+                    {i + 1}
+                  </span>
+                  <span>{s}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
