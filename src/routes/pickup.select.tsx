@@ -52,7 +52,16 @@ function SelectStudent() {
     setFriendOpen((v) => !v);
   };
 
-  const goNext = () => nav({ to: `/pickup/form/${m}`, search: { s: selected.join(",") } });
+  const allowFriends = m !== "ojek";
+
+  const goNext = () =>
+    nav({
+      to: `/pickup/form/${m}`,
+      search: {
+        s: selected.join(","),
+        ...(allowFriends && friendList.length > 0 ? { f: friendList.map((x) => x.id).join(",") } : {}),
+      },
+    });
 
 
 
