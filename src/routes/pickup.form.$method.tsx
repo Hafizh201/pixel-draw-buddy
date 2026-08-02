@@ -59,6 +59,36 @@ function FormPage() {
     .map((id) => friends.find((x) => x.id === id))
     .filter((x): x is (typeof friends)[number] => Boolean(x));
 
+  const selectedStudents = studentIds
+    .map((id) => students.find((x) => x.id === id))
+    .filter((x): x is (typeof students)[number] => Boolean(x));
+
+  const called = [
+    ...selectedStudents.map((st) => ({
+      key: st.id,
+      name: st.name,
+      className: st.className,
+      isFriend: false,
+    })),
+    ...friendList.map((fr) => ({
+      key: fr.id,
+      name: fr.name,
+      className: fr.className,
+      isFriend: true,
+    })),
+  ];
+
+  const callText = `Assalamualaikum, Ananda ${called
+    .map((p) => `${p.name} (${p.className})`)
+    .join(", ")}, ${
+    method === "self"
+      ? `dijemput orang tua/wali di ${state.waitLocation || "gerbang utama"}`
+      : method === "other"
+        ? `dijemput oleh ${state.pickerName || "penjemput"} (${state.relation})`
+        : `dijemput driver ${state.platform} ${state.driverName || ""} ${state.plate}`.trim()
+  }. Mohon segera menuju area penjemputan.${state.note.trim() ? ` ${state.note.trim()}` : ""}`;
+
+
   const plateOk = method !== "ojek" || isValidPlate(state.plate);
   const requiredOk =
     (method !== "other" || state.pickerName.trim().length > 1) &&
