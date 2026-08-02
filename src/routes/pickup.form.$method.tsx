@@ -60,7 +60,7 @@ function FormPage() {
     .filter((x): x is (typeof friends)[number] => Boolean(x));
 
   const selectedStudents = studentIds
-    .map((id) => students.find((x) => x.id === id))
+    .map((id: string) => students.find((x) => x.id === id))
     .filter((x): x is (typeof students)[number] => Boolean(x));
 
   const called = [
