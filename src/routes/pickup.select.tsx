@@ -7,11 +7,11 @@ import { PhoneShell } from "@/components/layout/PhoneShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { BigButton } from "@/components/common/BigButton";
 import { BigTeman } from "@/components/common/teman";
-import { students, type Friend } from "@/lib/dummy/data";
+import { students, type Friend, dismissalFor } from "@/lib/dummy/data";
 import { FriendPicker } from "@/components/pickup/FriendPicker";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
-import { Check } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({ m: z.enum(["self", "other", "ojek"]).default("self") });
