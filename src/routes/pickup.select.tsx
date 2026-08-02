@@ -97,15 +97,19 @@ function SelectStudent() {
             </button>
           );
         })}
-        <FriendPicker
-          open={friendOpen}
-          selected={friendList}
-          onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
-          onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
-        />
-        <BigTeman onClick={handleToggleFriend}>
-          {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
-        </BigTeman>
+        {allowFriends && (
+          <>
+            <FriendPicker
+              open={friendOpen}
+              selected={friendList}
+              onAdd={(f) => setFriendList((prev) => (prev.some((x) => x.id === f.id) ? prev : [...prev, f]))}
+              onRemove={(id) => setFriendList((prev) => prev.filter((x) => x.id !== id))}
+            />
+            <BigTeman onClick={handleToggleFriend}>
+              {friendOpen ? "Tutup Tambah Teman" : "+ Teman ( Dijemput Bersama )"}
+            </BigTeman>
+          </>
+        )}
 
       </div>
       <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[480px] border-t border-border bg-background/95 px-5 pb-6 pt-4 backdrop-blur">
@@ -116,20 +120,19 @@ function SelectStudent() {
 
       <ConfirmDialog
         open={closeAsk}
-        title="Simpan daftar teman?"
-        description={`Anda menambahkan ${friendList.length} teman untuk dijemput bersama. Simpan daftar ini atau buang semuanya?`}
-        confirmLabel="Simpan & Lanjut"
-        cancelLabel="Buang Daftar"
-        onCancel={() => {
+        title="Buang daftar teman?"
+        description={`Anda menambahkan ${friendList.length} teman untuk dijemput bersama. Jika dibuang, seluruh nama pada daftar akan dihapus.`}
+        confirmLabel="Buang Daftar"
+        cancelLabel="Batal"
+        tone="danger"
+        onCancel={() => setCloseAsk(false)}
+        onConfirm={() => {
           setFriendList([]);
           setCloseAsk(false);
           setFriendOpen(false);
         }}
-        onConfirm={() => {
-          setCloseAsk(false);
-          setFriendOpen(false);
-        }}
       />
+
 
       <ConfirmDialog
         open={submitAsk}
