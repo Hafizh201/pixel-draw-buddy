@@ -72,23 +72,40 @@ function FormPage() {
         subtitle={`Untuk ${studentIds.length} siswa${friendList.length > 0 ? ` + ${friendList.length} teman` : ""}`}
       />
       <div className="space-y-4 p-5">
-        {friendList.length > 0 && (
-          <div className="rounded-3xl border border-border bg-surface p-4 shadow-card">
-            <p className="text-xs font-semibold text-muted-foreground">
-              Teman dijemput bersama ({friendList.length})
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {friendList.map((fr) => (
-                <span
-                  key={fr.id}
-                  className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-semibold text-ink"
-                >
-                  {fr.name} · {fr.className}
-                </span>
-              ))}
+        <section className="overflow-hidden rounded-3xl border border-border bg-surface shadow-card">
+          <header className="flex items-center justify-between border-b border-border/70 bg-surface-2/70 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-primary" />
+              <p className="font-display text-sm font-bold text-ink">Yang akan dipanggil</p>
             </div>
-          </div>
-        )}
+            <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold text-primary">
+              {called.length} nama
+            </span>
+          </header>
+          <ul className="divide-y divide-border/60">
+            {called.map((p) => (
+              <li key={p.key} className="flex items-center gap-3 px-4 py-3">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-surface-2 font-display text-sm font-bold text-ink">
+                  {p.name[0]}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-display text-sm font-bold text-ink">{p.name}</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    Kelas {p.className} · {p.isFriend ? "Teman" : "Ananda"}
+                  </p>
+                </div>
+                <span className="flex items-center gap-1 rounded-full border border-border bg-background px-2 py-1 text-[10px] font-bold text-ink">
+                  <Clock className="h-3 w-3 text-primary" />
+                  {dismissalFor(p.className)}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="border-t border-border/60 px-4 py-2.5 text-[10px] leading-relaxed text-muted-foreground">
+            Jam pulang mengikuti jadwal tiap kelas pada hari ini.
+          </p>
+        </section>
+
         {method === "other" && (
           <>
             <TextField label="Nama penjemput" value={state.pickerName} onChange={(v) => set("pickerName", v)} placeholder="Nama lengkap" />
