@@ -59,9 +59,7 @@ function FormPage() {
     .map((id) => friends.find((x) => x.id === id))
     .filter((x): x is Friend => Boolean(x));
 
-  const selectedStudents: Student[] = studentIds
-    .map((id: string) => students.find((x) => x.id === id))
-    .filter((x): x is Student => Boolean(x));
+  const selectedStudents: Student[] = students.filter((x) => studentIds.includes(x.id));
 
   const called = [
     ...selectedStudents.map((st: Student) => ({
