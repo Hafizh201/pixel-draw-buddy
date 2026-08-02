@@ -9,88 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AttendanceTodayRouteImport } from './routes/attendance-today'
-import { Route as ChildrenRouteImport } from './routes/children'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as HelpRouteImport } from './routes/help'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as MonitoringRouteImport } from './routes/monitoring'
-import { Route as NotificationsRouteImport } from './routes/notifications'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as SchoolRouteImport } from './routes/school'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TrustedPickupRouteImport } from './routes/trusted-pickup'
-import { Route as LoginPinRouteImport } from './routes/login_.pin'
-import { Route as PickupCompleteRouteImport } from './routes/pickup.complete'
-import { Route as PickupMethodRouteImport } from './routes/pickup.method'
-import { Route as PickupPreviewRouteImport } from './routes/pickup.preview'
-import { Route as PickupSelectRouteImport } from './routes/pickup.select'
-import { Route as PickupWaitingRouteImport } from './routes/pickup.waiting'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SchoolRouteImport } from './routes/school'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as MonitoringRouteImport } from './routes/monitoring'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ChildrenRouteImport } from './routes/children'
+import { Route as AttendanceTodayRouteImport } from './routes/attendance-today'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
-import { Route as PickupFormMethodRouteImport } from './routes/pickup.form.$method'
+import { Route as PickupWaitingRouteImport } from './routes/pickup.waiting'
+import { Route as PickupSelectRouteImport } from './routes/pickup.select'
+import { Route as PickupPreviewRouteImport } from './routes/pickup.preview'
+import { Route as PickupMethodRouteImport } from './routes/pickup.method'
+import { Route as PickupCompleteRouteImport } from './routes/pickup.complete'
+import { Route as LoginPinRouteImport } from './routes/login_.pin'
 import { Route as PickupFormTemanRouteImport } from './routes/pickup.form.teman'
+import { Route as PickupFormMethodRouteImport } from './routes/pickup.form.$method'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AttendanceTodayRoute = AttendanceTodayRouteImport.update({
-  id: '/attendance-today',
-  path: '/attendance-today',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChildrenRoute = ChildrenRouteImport.update({
-  id: '/children',
-  path: '/children',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HelpRoute = HelpRouteImport.update({
-  id: '/help',
-  path: '/help',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MonitoringRoute = MonitoringRouteImport.update({
-  id: '/monitoring',
-  path: '/monitoring',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotificationsRoute = NotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SchoolRoute = SchoolRouteImport.update({
-  id: '/school',
-  path: '/school',
+const TrustedPickupRoute = TrustedPickupRouteImport.update({
+  id: '/trusted-pickup',
+  path: '/trusted-pickup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -98,39 +43,64 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TrustedPickupRoute = TrustedPickupRouteImport.update({
-  id: '/trusted-pickup',
-  path: '/trusted-pickup',
+const SchoolRoute = SchoolRouteImport.update({
+  id: '/school',
+  path: '/school',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginPinRoute = LoginPinRouteImport.update({
-  id: '/login_/pin',
-  path: '/login/pin',
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PickupCompleteRoute = PickupCompleteRouteImport.update({
-  id: '/pickup/complete',
-  path: '/pickup/complete',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PickupMethodRoute = PickupMethodRouteImport.update({
-  id: '/pickup/method',
-  path: '/pickup/method',
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PickupPreviewRoute = PickupPreviewRouteImport.update({
-  id: '/pickup/preview',
-  path: '/pickup/preview',
+const MonitoringRoute = MonitoringRouteImport.update({
+  id: '/monitoring',
+  path: '/monitoring',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PickupSelectRoute = PickupSelectRouteImport.update({
-  id: '/pickup/select',
-  path: '/pickup/select',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PickupWaitingRoute = PickupWaitingRouteImport.update({
-  id: '/pickup/waiting',
-  path: '/pickup/waiting',
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChildrenRoute = ChildrenRouteImport.update({
+  id: '/children',
+  path: '/children',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceTodayRoute = AttendanceTodayRouteImport.update({
+  id: '/attendance-today',
+  path: '/attendance-today',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsAccessibilityRoute = SettingsAccessibilityRouteImport.update({
@@ -138,14 +108,44 @@ const SettingsAccessibilityRoute = SettingsAccessibilityRouteImport.update({
   path: '/accessibility',
   getParentRoute: () => SettingsRoute,
 } as any)
-const PickupFormMethodRoute = PickupFormMethodRouteImport.update({
-  id: '/pickup/form/$method',
-  path: '/pickup/form/$method',
+const PickupWaitingRoute = PickupWaitingRouteImport.update({
+  id: '/pickup/waiting',
+  path: '/pickup/waiting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickupSelectRoute = PickupSelectRouteImport.update({
+  id: '/pickup/select',
+  path: '/pickup/select',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickupPreviewRoute = PickupPreviewRouteImport.update({
+  id: '/pickup/preview',
+  path: '/pickup/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickupMethodRoute = PickupMethodRouteImport.update({
+  id: '/pickup/method',
+  path: '/pickup/method',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickupCompleteRoute = PickupCompleteRouteImport.update({
+  id: '/pickup/complete',
+  path: '/pickup/complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginPinRoute = LoginPinRouteImport.update({
+  id: '/login_/pin',
+  path: '/login/pin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PickupFormTemanRoute = PickupFormTemanRouteImport.update({
   id: '/pickup/form/teman',
   path: '/pickup/form/teman',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickupFormMethodRoute = PickupFormMethodRouteImport.update({
+  id: '/pickup/form/$method',
+  path: '/pickup/form/$method',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -330,88 +330,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/attendance-today': {
-      id: '/attendance-today'
-      path: '/attendance-today'
-      fullPath: '/attendance-today'
-      preLoaderRoute: typeof AttendanceTodayRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/children': {
-      id: '/children'
-      path: '/children'
-      fullPath: '/children'
-      preLoaderRoute: typeof ChildrenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/help': {
-      id: '/help'
-      path: '/help'
-      fullPath: '/help'
-      preLoaderRoute: typeof HelpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/history': {
-      id: '/history'
-      path: '/history'
-      fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/monitoring': {
-      id: '/monitoring'
-      path: '/monitoring'
-      fullPath: '/monitoring'
-      preLoaderRoute: typeof MonitoringRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notifications': {
-      id: '/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof NotificationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/school': {
-      id: '/school'
-      path: '/school'
-      fullPath: '/school'
-      preLoaderRoute: typeof SchoolRouteImport
+    '/trusted-pickup': {
+      id: '/trusted-pickup'
+      path: '/trusted-pickup'
+      fullPath: '/trusted-pickup'
+      preLoaderRoute: typeof TrustedPickupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -421,53 +344,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trusted-pickup': {
-      id: '/trusted-pickup'
-      path: '/trusted-pickup'
-      fullPath: '/trusted-pickup'
-      preLoaderRoute: typeof TrustedPickupRouteImport
+    '/school': {
+      id: '/school'
+      path: '/school'
+      fullPath: '/school'
+      preLoaderRoute: typeof SchoolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login_/pin': {
-      id: '/login_/pin'
-      path: '/login/pin'
-      fullPath: '/login/pin'
-      preLoaderRoute: typeof LoginPinRouteImport
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pickup/complete': {
-      id: '/pickup/complete'
-      path: '/pickup/complete'
-      fullPath: '/pickup/complete'
-      preLoaderRoute: typeof PickupCompleteRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pickup/method': {
-      id: '/pickup/method'
-      path: '/pickup/method'
-      fullPath: '/pickup/method'
-      preLoaderRoute: typeof PickupMethodRouteImport
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pickup/preview': {
-      id: '/pickup/preview'
-      path: '/pickup/preview'
-      fullPath: '/pickup/preview'
-      preLoaderRoute: typeof PickupPreviewRouteImport
+    '/monitoring': {
+      id: '/monitoring'
+      path: '/monitoring'
+      fullPath: '/monitoring'
+      preLoaderRoute: typeof MonitoringRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pickup/select': {
-      id: '/pickup/select'
-      path: '/pickup/select'
-      fullPath: '/pickup/select'
-      preLoaderRoute: typeof PickupSelectRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pickup/waiting': {
-      id: '/pickup/waiting'
-      path: '/pickup/waiting'
-      fullPath: '/pickup/waiting'
-      preLoaderRoute: typeof PickupWaitingRouteImport
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/children': {
+      id: '/children'
+      path: '/children'
+      fullPath: '/children'
+      preLoaderRoute: typeof ChildrenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance-today': {
+      id: '/attendance-today'
+      path: '/attendance-today'
+      fullPath: '/attendance-today'
+      preLoaderRoute: typeof AttendanceTodayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings/accessibility': {
@@ -477,11 +435,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsAccessibilityRouteImport
       parentRoute: typeof SettingsRoute
     }
-    '/pickup/form/$method': {
-      id: '/pickup/form/$method'
-      path: '/pickup/form/$method'
-      fullPath: '/pickup/form/$method'
-      preLoaderRoute: typeof PickupFormMethodRouteImport
+    '/pickup/waiting': {
+      id: '/pickup/waiting'
+      path: '/pickup/waiting'
+      fullPath: '/pickup/waiting'
+      preLoaderRoute: typeof PickupWaitingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickup/select': {
+      id: '/pickup/select'
+      path: '/pickup/select'
+      fullPath: '/pickup/select'
+      preLoaderRoute: typeof PickupSelectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickup/preview': {
+      id: '/pickup/preview'
+      path: '/pickup/preview'
+      fullPath: '/pickup/preview'
+      preLoaderRoute: typeof PickupPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickup/method': {
+      id: '/pickup/method'
+      path: '/pickup/method'
+      fullPath: '/pickup/method'
+      preLoaderRoute: typeof PickupMethodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickup/complete': {
+      id: '/pickup/complete'
+      path: '/pickup/complete'
+      fullPath: '/pickup/complete'
+      preLoaderRoute: typeof PickupCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login_/pin': {
+      id: '/login_/pin'
+      path: '/login/pin'
+      fullPath: '/login/pin'
+      preLoaderRoute: typeof LoginPinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pickup/form/teman': {
@@ -489,6 +482,13 @@ declare module '@tanstack/react-router' {
       path: '/pickup/form/teman'
       fullPath: '/pickup/form/teman'
       preLoaderRoute: typeof PickupFormTemanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickup/form/$method': {
+      id: '/pickup/form/$method'
+      path: '/pickup/form/$method'
+      fullPath: '/pickup/form/$method'
+      preLoaderRoute: typeof PickupFormMethodRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -533,3 +533,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
