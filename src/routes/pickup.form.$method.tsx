@@ -30,7 +30,7 @@ export const Route = createFileRoute("/pickup/form/$method")({
 const draft = {
   method: "self" as "self" | "other" | "ojek",
   note: "",
-  estimate: "5",
+  estimate: "sudah",
   waitLocation: "Gerbang Utama",
   pickerName: "",
   relation: "Kakek",
@@ -108,7 +108,7 @@ function FormPage() {
               <p className="font-display text-sm font-bold text-ink">Yang akan dipanggil</p>
             </div>
             <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold text-primary">
-              {called.length} nama
+              {called.length} Siswa
             </span>
           </header>
           <ul className="divide-y divide-border/60">
@@ -131,14 +131,13 @@ function FormPage() {
             ))}
           </ul>
           <p className="border-t border-border/60 px-4 py-2.5 text-[10px] leading-relaxed text-muted-foreground">
-            Jam pulang mengikuti jadwal tiap kelas pada hari ini.
-          </p>
+            Pastikan sudah jam kepulangan sebelum menekan tombol lanjut ke Step berikutnya!</p>
         </section>
 
         {method === "other" && (
           <>
-            <TextField label="Nama penjemput" value={state.pickerName} onChange={(v) => set("pickerName", v)} placeholder="Nama lengkap" />
-            <SelectField
+            <TextField label="Siapa yang menjemput Ananda?" value={state.pickerName} onChange={(v) => set("pickerName", v)} placeholder="Penjemput | Contoh: Om Fulan" />
+            {/*<SelectField
               label="Hubungan dengan siswa"
               value={state.relation as "Kakek" | "Nenek" | "Paman" | "Bibi" | "Saudara"}
               onChange={(v) => set("relation", v)}
@@ -149,7 +148,7 @@ function FormPage() {
                 { value: "Bibi", label: "Bibi" },
                 { value: "Saudara", label: "Saudara" },
               ]}
-            />
+            />*/}
           </>
         )}
 
@@ -182,9 +181,11 @@ function FormPage() {
 
         <SelectField
           label="Estimasi kedatangan"
-          value={state.estimate as "5" | "10" | "15" | "20"}
+          value={state.estimate as "sudah" | "5" | "10" | "15" | "20"}
           onChange={(v) => set("estimate", v)}
           options={[
+            { value: "sudah", label: "Sudah Sampai" },
+            { value: "tdktahu", label: "Tidak diketahui ( Sistem QR )" },
             { value: "5", label: "≤ 5 menit" },
             { value: "10", label: "10 menit" },
             { value: "15", label: "15 menit" },

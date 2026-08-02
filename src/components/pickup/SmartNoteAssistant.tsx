@@ -28,7 +28,7 @@ export function SmartNoteAssistant({
   return (
     <div className="space-y-2">
       <label className="flex items-center justify-between px-1 text-xs font-semibold text-muted-foreground">
-        <span>Catatan untuk sekolah</span>
+        <span>Catatan untuk pengumuman</span>
         <span className={cn(remaining < 10 && "text-warning-foreground", remaining < 0 && "text-destructive")}>
           {remaining} karakter
         </span>
@@ -43,7 +43,7 @@ export function SmartNoteAssistant({
         />
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-2">
           <div className="flex items-center gap-2 text-[11px] font-semibold text-primary">
-            <Sparkles className="h-3.5 w-3.5" /> AI Assistant
+            <Sparkles className="h-3.5 w-3.5" /> AI Auto-Correct
           </div>
           <button
             type="button"
@@ -68,7 +68,7 @@ export function SmartNoteAssistant({
           className="flex w-full items-center justify-between gap-2"
         >
           <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-            Template kalimat · maks. 3
+            Pilih Catatan Penting (Opsional)
           </span>
           <span
             className={cn(
