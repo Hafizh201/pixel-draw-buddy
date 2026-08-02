@@ -90,6 +90,9 @@ function SelectStudent() {
               <div className="min-w-0 flex-1">
                 <p className="font-display text-base font-bold text-ink">{s.name}</p>
                 <p className="text-xs text-muted-foreground">Kelas {s.className} · NIS {s.nis}</p>
+                <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-bold text-ink">
+                  <Clock className="h-3 w-3 text-primary" /> Pulang {dismissalFor(s.className)}
+                </span>
               </div>
               <span className={cn("grid h-6 w-6 place-items-center rounded-md border-2", checked ? "border-primary bg-primary text-white" : "border-border")}>
                 {checked && <Check className="h-4 w-4" />}
