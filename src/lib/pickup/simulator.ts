@@ -63,6 +63,11 @@ const LABELS: Record<PickupStage, string> = {
   done: "Pemanggilan selesai",
 };
 
+function makeQrCode() {
+  const rand = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
+  return `PJ-${rand}${String(Date.now()).slice(-3)}`;
+}
+
 export function submitPickup(input: Omit<PickupRequest, "id" | "createdAt" | "stage" | "timeline" | "announcement" | "cooldownStartedAt" | "secondCallExtras" | "callCount">) {
   const id = `req-${Date.now()}`;
   const req: PickupRequest = {
@@ -72,6 +77,7 @@ export function submitPickup(input: Omit<PickupRequest, "id" | "createdAt" | "st
     stage: "received",
     timeline: [{ at: nowHHmm(), label: LABELS.received, stage: "received" }],
     announcement: buildAnnouncement(input),
+    qrCode: input.estimate === "qr" ? makeQrCode() : null,
     cooldownStartedAt: null,
     secondCallExtras: [],
     callCount: 1,
