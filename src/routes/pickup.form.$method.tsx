@@ -30,6 +30,7 @@ export const Route = createFileRoute("/pickup/form/$method")({
 const draft = {
   method: "self" as "self" | "other" | "ojek",
   note: "",
+  noteExtras: [] as string[],
   estimate: "sudah",
   waitLocation: "Gerbang Utama",
   pickerName: "",
@@ -48,6 +49,7 @@ function FormPage() {
   const nav = useNavigate();
   const [state, setState] = useState({ ...draftMemo, method });
   const [noteValid, setNoteValid] = useState(true);
+  const [qrAsk, setQrAsk] = useState(false);
   if (!ready) return <FormSkeleton />;
 
   const set = <K extends keyof typeof state>(k: K, v: (typeof state)[K]) =>
