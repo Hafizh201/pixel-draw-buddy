@@ -2,7 +2,10 @@ import { pickupStore, STAGE_ORDER, type PickupStage, type PickupRequest } from "
 import { nowHHmm } from "../format/utils";
 import { students } from "../dummy/data";
 
-export function buildAnnouncement(req: Pick<PickupRequest, "studentIds" | "method" | "pickerName">) {
+export function buildAnnouncement(
+  req: Pick<PickupRequest, "studentIds" | "method" | "pickerName"> &
+    Partial<Pick<PickupRequest, "note" | "noteExtras">>,
+) {
   const names = req.studentIds
     .map((id) => students.find((s) => s.id === id)?.name)
     .filter(Boolean)

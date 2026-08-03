@@ -69,7 +69,9 @@ export type PickupRequest = {
   studentIds: string[];
   method: "self" | "other" | "ojek";
   note: string;
+  noteExtras?: string[];
   estimate: string;
+  qrCode?: string | null;
   waitLocation?: string;
   pickerName?: string;
   relation?: string;
