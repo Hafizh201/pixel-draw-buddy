@@ -24,6 +24,13 @@ export function SmartNoteAssistant({
     onValidityChange?.(b.length === 0 && value.length <= MAX_NOTE);
   }, [value, onValidityChange]);
 
+  const toggle = (s: string) => {
+    const next = value.includes(s)
+      ? value.replace(s, "").replace(/\s+/g, " ").trim()
+      : `${value.trim()} ${s}`.trim();
+    onChange(next.slice(0, MAX_NOTE));
+  };
+
   return (
     <div className="space-y-2">
       <label className="flex items-center justify-between px-1 text-xs font-semibold text-muted-foreground">
@@ -106,5 +113,6 @@ export function SmartNoteAssistant({
           })}
         </ul>
       </div>
+    </div>
   );
 }
