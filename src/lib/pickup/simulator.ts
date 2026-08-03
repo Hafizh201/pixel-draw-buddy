@@ -17,7 +17,10 @@ export function buildAnnouncement(
       ? req.pickerName || "penjemput"
       : "driver ojek online";
   const cls = students.find((s) => s.id === req.studentIds[0])?.className ?? "";
-  return `Kepada Ananda ${names} kelas ${cls}, dipersilakan menuju area penjemputan karena ${method} telah tiba. Terima kasih.`;
+  const tail = [req.note?.trim(), ...(req.noteExtras ?? [])].filter(Boolean).join(" ");
+  return `Kepada Ananda ${names} kelas ${cls}, dipersilakan menuju area penjemputan karena ${method} telah tiba.${
+    tail ? ` ${tail}` : ""
+  } Terima kasih.`;
 }
 
 const STAGE_DELAYS: Record<PickupStage, number> = {
