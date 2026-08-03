@@ -6,10 +6,9 @@ export function StickyPickupBar() {
   const { current } = useActivePickup();
   if (!current) return null;
   const stage = current.stage;
-  const done = stage === "done" && current.cooldownStartedAt !== null;
   return (
     <div className="sticky top-0 z-40 mx-3 mt-3 animate-fade-in rounded-2xl border border-primary/20 bg-gradient-hero p-3 text-primary-foreground shadow-elevated">
-      <Link to={done ? "/pickup/waiting" : "/monitoring"} className="flex items-center gap-3">
+      <Link to="/monitoring" className="flex items-center gap-3">
         <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/15 animate-pulse-ring">
           <Radio className="h-5 w-5" />
         </div>
