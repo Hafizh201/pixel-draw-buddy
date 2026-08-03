@@ -102,6 +102,7 @@ function Monitoring() {
         </div>
       </div>
 
+      {inCooldown && (
       <div className="mt-6 flex flex-col items-center px-5">
         <CircularCooldownTimer
           startedAt={startedAt}
@@ -114,6 +115,7 @@ function Monitoring() {
             : "Mohon menunggu — pemanggilan ulang tersedia setelah hitungan selesai."}
         </p>
       </div>
+      )}
 
       {current.qrCode && (
         <>
