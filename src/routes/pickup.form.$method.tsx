@@ -10,7 +10,8 @@ import { SmartNoteAssistant } from "@/components/pickup/SmartNoteAssistant";
 import { PlateInput, TextField, SelectField } from "@/components/pickup/Fields";
 import { students, friends, dismissalFor, type Student, type Friend } from "@/lib/dummy/data";
 import { isValidPlate } from "@/lib/format/utils";
-import { Users, Clock, Megaphone } from "lucide-react";
+import { Users, Clock, Megaphone, QrCode } from "lucide-react";
+import { QrGuideDialog } from "@/components/pickup/QrGuideDialog";
 
 const searchSchema = z.object({ s: z.string().optional(), f: z.string().optional() });
 
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/pickup/form/$method")({
 const draft = {
   method: "self" as "self" | "other" | "ojek",
   note: "",
+  noteExtras: [] as string[],
   estimate: "sudah",
   waitLocation: "Gerbang Utama",
   pickerName: "",
@@ -48,6 +50,7 @@ function FormPage() {
   const nav = useNavigate();
   const [state, setState] = useState({ ...draftMemo, method });
   const [noteValid, setNoteValid] = useState(true);
+  const [qrAsk, setQrAsk] = useState(false);
   if (!ready) return <FormSkeleton />;
 
   const set = <K extends keyof typeof state>(k: K, v: (typeof state)[K]) =>
@@ -76,6 +79,8 @@ function FormPage() {
     })),
   ];
 
+  const noteTail = [state.note.trim(), ...state.noteExtras].filter(Boolean).join(" ");
+
   const callText = `Assalamualaikum, Ananda ${called
     .map((p) => `${p.name} (${p.className})`)
     .join(", ")}, ${
@@ -84,7 +89,7 @@ function FormPage() {
       : method === "other"
         ? `dijemput oleh ${state.pickerName || "penjemput"} (${state.relation})`
         : `dijemput driver ${state.platform} ${state.driverName || ""} ${state.plate}`.trim()
-  }. Mohon segera menuju area penjemputan.${state.note.trim() ? ` ${state.note.trim()}` : ""}`;
+  }. Mohon segera menuju area penjemputan.${noteTail ? ` ${noteTail}` : ""}`;
 
 
   const plateOk = method !== "ojek" || isValidPlate(state.plate);
@@ -180,24 +185,59 @@ function FormPage() {
         )}
 
         <SelectField
-          label="Estimasi kedatangan"
-          value={state.estimate as "sudah" | "5" | "10" | "15" | "20"}
-          onChange={(v) => set("estimate", v)}
-          options={[
-            { value: "sudah", label: "Sudah Sampai" },
-            { value: "tdktahu", label: "Tidak diketahui ( Sistem QR )" },
-            { value: "5", label: "≤ 5 menit" },
-            { value: "10", label: "10 menit" },
-            { value: "15", label: "15 menit" },
-            { value: "20", label: "20 menit" },
-          ]}
+          label={method === "self" ? "Estimasi kedatangan" : "Cara kedatangan"}
+          value={state.estimate as string}
+          onChange={(v) => {
+            if (v === "qr") {
+              setQrAsk(true);
+              return;
+            }
+            set("estimate", v);
+          }}
+          options={
+            method === "self"
+              ? [
+                  { value: "sudah", label: "Sudah Sampai" },
+                  { value: "qr", label: "Sistem QR" },
+                  { value: "5", label: "≤ 5 menit" },
+                  { value: "10", label: "10 menit" },
+                  { value: "15", label: "15 menit" },
+                  { value: "20", label: "20 menit" },
+                ]
+              : [
+                  { value: "sudah", label: "Sudah Sampai" },
+                  { value: "qr", label: "Sistem QR" },
+                ]
+          }
         />
+        {state.estimate === "qr" && (
+          <div className="flex items-start gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-3 py-2.5 text-[11px] leading-relaxed text-ink">
+            <QrCode className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            <p>
+              Kode QR akan dibuat otomatis setelah permintaan dikirim dan dapat dilihat pada halaman monitoring.
+            </p>
+          </div>
+        )}
 
         <SmartNoteAssistant
           method={method}
           value={state.note}
           onChange={(v) => set("note", v)}
+          extras={state.noteExtras}
+          onExtrasChange={(v) => set("noteExtras", v)}
           onValidityChange={setNoteValid}
+        />
+
+        <QrGuideDialog
+          open={qrAsk}
+          onAccept={() => {
+            set("estimate", "qr");
+            setQrAsk(false);
+          }}
+          onDecline={() => {
+            set("estimate", "sudah");
+            setQrAsk(false);
+          }}
         />
 
         <section className="rounded-3xl border border-primary/25 bg-primary/5 p-4">

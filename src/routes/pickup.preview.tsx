@@ -39,10 +39,17 @@ function PreviewPage() {
   const allChecked = checks.data && checks.kontak;
   if (!ready) return <FormSkeleton />;
 
+  const estimateLabel =
+    draft.estimate === "sudah"
+      ? "Sudah sampai di sekolah"
+      : draft.estimate === "qr"
+        ? "Sistem QR (dipindai saat tiba)"
+        : `± ${draft.estimate} menit lagi`;
+
   const rows: [string, string][] = [
     ["Siswa", chosen.map((c: { name: string }) => c.name).join(", ")],
     ["Metode", labelOf(draft.method)],
-    ["Estimasi", `${draft.estimate} menit`],
+    ["Kedatangan", estimateLabel],
     ...(draft.method === "self" ? [["Lokasi menunggu", draft.waitLocation] as [string, string]] : []),
     ...(draft.method === "other"
       ? [
@@ -58,6 +65,7 @@ function PreviewPage() {
         ]
       : []),
     ["Catatan", draft.note || "—"],
+    ["Catatan penting", draft.noteExtras.length > 0 ? draft.noteExtras.join(" ") : "—"],
   ];
 
   const submit = () => {
@@ -65,6 +73,7 @@ function PreviewPage() {
       studentIds,
       method: draft.method,
       note: draft.note,
+      noteExtras: draft.noteExtras,
       estimate: draft.estimate,
       waitLocation: draft.waitLocation,
       pickerName: draft.pickerName,

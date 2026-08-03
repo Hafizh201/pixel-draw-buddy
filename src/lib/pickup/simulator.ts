@@ -2,7 +2,10 @@ import { pickupStore, STAGE_ORDER, type PickupStage, type PickupRequest } from "
 import { nowHHmm } from "../format/utils";
 import { students } from "../dummy/data";
 
-export function buildAnnouncement(req: Pick<PickupRequest, "studentIds" | "method" | "pickerName">) {
+export function buildAnnouncement(
+  req: Pick<PickupRequest, "studentIds" | "method" | "pickerName"> &
+    Partial<Pick<PickupRequest, "note" | "noteExtras">>,
+) {
   const names = req.studentIds
     .map((id) => students.find((s) => s.id === id)?.name)
     .filter(Boolean)
@@ -14,7 +17,10 @@ export function buildAnnouncement(req: Pick<PickupRequest, "studentIds" | "metho
       ? req.pickerName || "penjemput"
       : "driver ojek online";
   const cls = students.find((s) => s.id === req.studentIds[0])?.className ?? "";
-  return `Kepada Ananda ${names} kelas ${cls}, dipersilakan menuju area penjemputan karena ${method} telah tiba. Terima kasih.`;
+  const tail = [req.note?.trim(), ...(req.noteExtras ?? [])].filter(Boolean).join(" ");
+  return `Kepada Ananda ${names} kelas ${cls}, dipersilakan menuju area penjemputan karena ${method} telah tiba.${
+    tail ? ` ${tail}` : ""
+  } Terima kasih.`;
 }
 
 const STAGE_DELAYS: Record<PickupStage, number> = {
@@ -57,6 +63,11 @@ const LABELS: Record<PickupStage, string> = {
   done: "Pemanggilan selesai",
 };
 
+function makeQrCode() {
+  const rand = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
+  return `PJ-${rand}${String(Date.now()).slice(-3)}`;
+}
+
 export function submitPickup(input: Omit<PickupRequest, "id" | "createdAt" | "stage" | "timeline" | "announcement" | "cooldownStartedAt" | "secondCallExtras" | "callCount">) {
   const id = `req-${Date.now()}`;
   const req: PickupRequest = {
@@ -66,6 +77,7 @@ export function submitPickup(input: Omit<PickupRequest, "id" | "createdAt" | "st
     stage: "received",
     timeline: [{ at: nowHHmm(), label: LABELS.received, stage: "received" }],
     announcement: buildAnnouncement(input),
+    qrCode: input.estimate === "qr" ? makeQrCode() : null,
     cooldownStartedAt: null,
     secondCallExtras: [],
     callCount: 1,
